@@ -1,0 +1,35 @@
+# Unity Generated Files
+Library/
+Logs/
+Temp/
+obj/
+Build/
+Builds/
+UserSettings/
+
+# Ignore the packages cache
+Packages/com.unity.package-manager.cache/
+
+# Ignore Auto-generated project files
+*.csproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.opendb
+*.VC.db
+
+# Cache files
+.vs/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Ignore local configuration and user files
+*.bak
+*.unitypackage
