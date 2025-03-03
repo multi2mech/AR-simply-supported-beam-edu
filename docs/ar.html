@@ -29,7 +29,6 @@
     <model-viewer 
         id="arViewer"
         src="beam.glb" 
-        ios-src="beam.usdz" 
         ar 
         ar-modes="webxr scene-viewer quick-look"
         camera-controls
@@ -40,7 +39,6 @@
         shadow-intensity="1"
         exposure="1"
         environment-image="neutral"
-        poster="loading.jpg"
         alt="3D Beam Model">
         
         <!-- AR Button -->
@@ -52,7 +50,7 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const viewer = document.getElementById("viewer");
+            const viewer = document.getElementById("arViewer");
     
             viewer.addEventListener("load", () => {
                 console.log("Model loaded, checking animations...");
