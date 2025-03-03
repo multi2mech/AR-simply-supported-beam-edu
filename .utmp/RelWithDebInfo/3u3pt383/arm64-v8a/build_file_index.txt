@@ -1,0 +1,2 @@
+/Users/alessandromastrofini/LocalFiles/GameUnity/AR-simply-supported-beam-edu/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/CMakeLists.txt
+/Users/alessandromastrofini/LocalFiles/GameUnity/AR-simply-supported-beam-edu/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/CMakeLists.txt

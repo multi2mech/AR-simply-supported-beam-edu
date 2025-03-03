@@ -1,4 +1,4 @@
-Library: /Users/alessandromastrofini/LocalFiles/GameUnity/AR-beam-simplified/05_Performance/Temp/BurstOutput/tempburstlibs/arm64-v8a/lib_burst_generated
+Library: /Users/alessandromastrofini/LocalFiles/GameUnity/AR-simply-supported-beam-edu/Temp/BurstOutput/tempburstlibs/arm64-v8a/lib_burst_generated
 --platform=Android
 --backend=burst-llvm-16
 --target=ARMV8A_AARCH64
@@ -8,10 +8,10 @@ Library: /Users/alessandromastrofini/LocalFiles/GameUnity/AR-beam-simplified/05_
 --float-precision=Standard
 --target-framework=NetFramework
 --generate-link-xml=Temp/burst.link.xml
---temp-folder=/Users/alessandromastrofini/LocalFiles/GameUnity/AR-beam-simplified/05_Performance/Temp/Burst
+--temp-folder=/Users/alessandromastrofini/LocalFiles/GameUnity/AR-simply-supported-beam-edu/Temp/Burst
 --key-folder=/Applications/Unity/Hub/Editor/6000.0.26f1/PlaybackEngines/AndroidPlayer
---decode-folder=/Users/alessandromastrofini/LocalFiles/GameUnity/AR-beam-simplified/05_Performance/Library/Burst
---output=/Users/alessandromastrofini/LocalFiles/GameUnity/AR-beam-simplified/05_Performance/Temp/BurstOutput/tempburstlibs/arm64-v8a/lib_burst_generated
+--decode-folder=/Users/alessandromastrofini/LocalFiles/GameUnity/AR-simply-supported-beam-edu/Library/Burst
+--output=/Users/alessandromastrofini/LocalFiles/GameUnity/AR-simply-supported-beam-edu/Temp/BurstOutput/tempburstlibs/arm64-v8a/lib_burst_generated
 --pdb-search-paths=Temp/ManagedSymbols/
 
 --method=Unity.Jobs.IJobParallelForExtensions+ParallelForJobStruct`1[[UnityEngine.Rendering.GPUInstanceDataBuffer+ConvertCPUInstancesToGPUInstancesJob, Unity.RenderPipelines.GPUDriven.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::Execute(UnityEngine.Rendering.GPUInstanceDataBuffer+ConvertCPUInstancesToGPUInstancesJob&, Unity.RenderPipelines.GPUDriven.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|Unity.Jobs.LowLevel.Unsafe.JobRanges&, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)--a917331aad44b603aa293fb2ddd84845
@@ -95,10 +95,10 @@ Library: /Users/alessandromastrofini/LocalFiles/GameUnity/AR-beam-simplified/05_
 --target-framework=NetFramework
 --float-mode=Fast
 --generate-link-xml=Temp/burst.link.xml
---temp-folder=/Users/alessandromastrofini/LocalFiles/GameUnity/AR-beam-simplified/05_Performance/Temp/Burst
+--temp-folder=/Users/alessandromastrofini/LocalFiles/GameUnity/AR-simply-supported-beam-edu/Temp/Burst
 --key-folder=/Applications/Unity/Hub/Editor/6000.0.26f1/PlaybackEngines/AndroidPlayer
---decode-folder=/Users/alessandromastrofini/LocalFiles/GameUnity/AR-beam-simplified/05_Performance/Library/Burst
---output=/Users/alessandromastrofini/LocalFiles/GameUnity/AR-beam-simplified/05_Performance/Temp/BurstOutput/tempburstlibs/arm64-v8a/lib_burst_generated
+--decode-folder=/Users/alessandromastrofini/LocalFiles/GameUnity/AR-simply-supported-beam-edu/Library/Burst
+--output=/Users/alessandromastrofini/LocalFiles/GameUnity/AR-simply-supported-beam-edu/Temp/BurstOutput/tempburstlibs/arm64-v8a/lib_burst_generated
 --pdb-search-paths=Temp/ManagedSymbols/
 
 --method=Unity.Jobs.IJobForExtensions+ForJobStruct`1[[UnityEngine.Rendering.Universal.ZBinningJob, Unity.RenderPipelines.Universal.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::Execute(UnityEngine.Rendering.Universal.ZBinningJob&, Unity.RenderPipelines.Universal.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|Unity.Jobs.LowLevel.Unsafe.JobRanges&, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)--77fc393cb521ac129b1392d4eb94d29a

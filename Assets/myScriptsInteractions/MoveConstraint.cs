@@ -129,7 +129,7 @@ public class ConstraintMovement : MonoBehaviour
                 float movementDirection = Vector3.Dot(movementVector, beamDirection);
                 float movementMagnitude = movementVector.magnitude;
                 Vector3 originalPosition = transform.position;
-                bool cond = (OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger) > 0.1f) || (OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger) > 0.1f);
+                bool cond = !(OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger) > 0.1f) || (OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger) > 0.1f);
   // Calculate normalized time (progress), clamped between 0 and 1
                 
                 Vector3 targetPosition = originalPosition;
@@ -158,22 +158,17 @@ public class ConstraintMovement : MonoBehaviour
                         }
                         else{
 
+                            increment = 0.05f *beamLength;
+                            //targetPosition = originalPosition + Mathf.Sign(movementDirection) * movementMagnitude * Time.deltaTime * beamDirection;
                             if (movementMagnitude > 0.1*beamLength || movementMagnitude < -0.1*beamLength){
-                                increment =  Mathf.Sign(movementDirection)*0.1f*Math.Abs(movementMagnitude) * Time.deltaTime;
+                                increment =  Mathf.Sign(movementDirection)*0.05f *beamLength * Time.deltaTime;
                             }
                             else{
                                 increment = 0;
                             }
-                    targetPosition = originalPosition +  increment  * beamDirection;
-                // transform.position += beamDirection * movementMagnitude * Mathf.Sign(movementDirection)*Time.deltaTime;
-                    //transform.position += beamDirection * movementMagnitude * 0.1f * Mathf.Sign(movementDirection);
-                    // Increment elapsed time
-                    elapsedTime2 += Time.deltaTime;
-
-                    // Calculate normalized time (progress), clamped between 0 and 1
-                    progress = Mathf.Clamp01(elapsedTime2 / 1f);
-
-                    // Smoothly interpolate the position using SmoothStep
+                            targetPosition = originalPosition +  increment  * beamDirection;
+                            elapsedTime2 += Time.deltaTime;
+                            progress = Mathf.Clamp01(elapsedTime2 / 1f);
                     
 
                 }
