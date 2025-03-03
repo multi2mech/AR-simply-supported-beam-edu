@@ -25,10 +25,14 @@
     <!-- AR Viewer for Mobile -->
     <div id="ar-container">
         <model-viewer src="beam.glb" 
-                      ar ar-modes="webxr scene-viewer quick-look"
-                      auto-rotate 
-                      camera-controls
-                      animation-name="your_animation">
+            ar-modes="webxr scene-viewer quick-look"
+            auto-rotate 
+            camera-controls
+            animation-name="*" 
+            autoplay 
+            shadow-intensity="1"
+            environment-image="neutral"
+            exposure="1">
         </model-viewer>
     </div>
 
