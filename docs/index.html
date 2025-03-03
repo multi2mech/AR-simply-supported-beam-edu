@@ -45,13 +45,14 @@
         // Load FBX animation
         const loader = new THREE.FBXLoader();
         loader.load('beam.fbx', function (object) {
+            console.log("FBX Loaded Successfully:", object);
             mixer = new THREE.AnimationMixer(object);
             object.animations.forEach((clip) => {
                 mixer.clipAction(clip).play();
             });
             scene.add(object);
         }, undefined, function (error) {
-            console.error('Error loading FBX:', error);
+            console.error("Error loading FBX:", error);
         });
 
         // Handle window resize
