@@ -16,7 +16,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f0f0f0;
+            background-color: #1f1f1f;
         }
         model-viewer {
             width: 100%;
@@ -31,11 +31,23 @@
         id="arViewer"
         auto-rotate
         camera-controls
-        autoplay ar ar-modes="webxr scene-viewer quick-look" scale="0.2 0.2 0.2" shadow-intensity="1"
+        autoplay ar ar-modes="webxr scene-viewer quick-look" scale="0.2 0.2 0.2" 
         src="beam.glb" 
         alt="3D Beam Model"
+        environment-image="neutral"
+        exposure="1.1"
+        skybox-color="black"
         orientation="0 0 -0.7071 0.7071"
         >
+        <div slot="annotation">
+            <button style="
+                position: absolute; bottom: 10px; left: 50%;
+                transform: translateX(-50%);
+                background-color: white; padding: 10px;
+                border-radius: 5px; border: none;">
+                🌟 View in AR
+            </button>
+        </div>
         
         <!-- AR Button -->
         <button slot="ar-button" style="
@@ -76,7 +88,7 @@
                 console.log("Available animations:", viewer.availableAnimations);
         
                 // Define the animations you want
-                const selectedAnimations = ["arrow_body.001Action", "Key|constraint_hinge.001|Action"];
+                const selectedAnimations = ["arrow_body.001Action", "Key|constraint_hinge.001|Action", "MAction"];
                 let index = 0;
         
                 function playNextAnimation() {
