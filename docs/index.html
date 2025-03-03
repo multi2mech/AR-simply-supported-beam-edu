@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FBX Animation Viewer</title>
     <script src="https://cdn.jsdelivr.net/npm/fflate@0.8.0/umd/index.min.js"></script>
+    
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/libs/fflate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/loaders/FBXLoader.js"></script>
@@ -12,33 +16,118 @@
 <script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/loaders/GLTFLoader.js"></script>
 
     <style>
-        body { margin: 0; overflow: hidden; }
-        canvas { display: block; }
+        body { margin: 0; overflow: hidden; background-color: #000000; color: #ffffff; font-family: 'Inconsolata', monospace;}
+        
+        .title-container {
+            position: absolute;
+            z-index: 0;
+            width: 100%;
+            pointer-events: none; /* Allows mouse events to go through */
+
+        }
+        .titles {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            padding-left: 20px;
+            padding-top: 30px;
+
+        }
+
+        .titles p {
+            font-size: clamp(200px, 5vw, 200px);
+            font-weight: bold;
+            margin: 0px 0;
+            text-align: left;
+        }
+
+        #three-container {
+            width: 100%; /* 70% for Three.js */
+            height: 100vh;
+            position: fixed;
+            z-index: 10;
+            background-color: transparent !important; /* Ensure transparency */
+        }
+
+        canvas {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: transparent !important; /* Ensure transparency */
+
+        }
+
+        .footer {
+            position: absolute;
+            z-index: 10;
+            width: 100%;
+            bottom: 0;
+            display: flex;  /* Enables flexbox */
+            justify-content: flex-end;  /* Aligns content to the left */
+            align-items: center;  /* Aligns items vertically in the center */
+            padding-right: 20px;
+            margin-right: 60px;
+            margin-bottom: 30px;
+        }
+        
+        .footer img {
+            width: 100px;
+            margin-right: 20px; /* Adds spacing between images */
+        }
     </style>
 </head>
 <body>
-
+    <div class="title-container">
+    <div class="titles">
+        <p>AUMENTED</p>
+        <p>REALITY</p>
+        <p>BEAM</p>
+        <p>MODEL</p>
+    </div>
+</div>
+    <div id="three-container"></div> 
+    <div class="footer">
+        <img src="logo-M2M-white.png" alt="M2M Logo">
+        <img src="ateneo.png" alt="M2M Logo">
+    </div>
+    
 <script>
     let scene, camera, renderer, controls, mixer;
 
-function init() {
+    function init() {
     // Scene setup
+    const container = document.getElementById('three-container');
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xeeeeee);
+    //scene.background = new THREE.Color('#010101');
+     
+    scene.background = null;
 
     // Camera setup
     camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 5000);
     camera.position.set(1000, 500, 1000);
     
     // Renderer setup
-    renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement);
+    renderer = new THREE.WebGLRenderer({ antialias: true ,  alpha: true });
+    
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    container.appendChild(renderer.domElement);
+    renderer.setClearColor(0x000000, 0); // Fully transparent background
+    
+    //renderer.setSize(window.innerWidth, window.innerHeight);
+    //document.body.appendChild(renderer.domElement);
 
     // Lighting
-    const light = new THREE.DirectionalLight(0xffffff, 1);
+    const light = new THREE.DirectionalLight(0xffffff, 1.5);
     light.position.set(5, 5, 0);
     scene.add(light);
+
+    const light2 = new THREE.DirectionalLight(0xffffff, 1.5);
+    light2.position.set(-5, -5, 0);
+    scene.add(light2);
 
     // Orbit controls
     controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -61,17 +150,27 @@ function init() {
         let box = new THREE.Box3().setFromObject(object);
         let center = new THREE.Vector3();
         box.getCenter(center); // Get center of model
-
+        
         // Move camera to a good distance
         let size = box.getSize(new THREE.Vector3()).length();
-        let distance = size * 0.5; // Adjust multiplier for better framing
+        let distance = size * 0.8; // Adjust multiplier for better framing
 
-        camera.position.set(center.x + distance, center.y + distance, center.z + distance);
+        camera.position.set(center.x + distance, center.y + 0.2*distance, center.z +0.2* distance);
         camera.lookAt(center); // Make camera look at the object
 
         // Update controls target
         controls.target.copy(center);
         controls.update();
+
+        let shiftAmount = 0; // Adjust this value to shift more or less
+
+        camera.position.z += shiftAmount; // Move view RIGHT
+        // camera.position.x -= shiftAmount; // Move view LEFT
+
+        controls.target.z += shiftAmount; // Move target to match camera
+        // controls.target.x -= shiftAmount; // Move target in sync
+
+        controls.update(); // Refresh camera controls
 
         // Check if animations exist
         if (gltf.animations.length > 0) {
@@ -94,7 +193,8 @@ function init() {
 }
 
 function onWindowResize() {
-    camera.aspect = window.innerWidth / window.innerHeight;
+    const container = document.getElementById('three-container');
+    camera.aspect = container.clientWidth / container.clientHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
@@ -111,3 +211,4 @@ init();
 
 </body>
 </html>
+
