@@ -7,6 +7,7 @@
 
     <!-- Load the Model Viewer script -->
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <script async src="https://ga.jspm.io/npm:es-module-shims@1.7.1/dist/es-module-shims.js"></script>
 
     <style>
         body {
@@ -28,17 +29,8 @@
     <!-- Model Viewer Component -->
     <model-viewer 
         id="arViewer"
+        camera-controls touch-action="pan-y" autoplay ar ar-modes="webxr scene-viewer" scale="0.2 0.2 0.2" shadow-intensity="1"
         src="beam.glb" 
-        ar 
-        ar-modes="webxr scene-viewer quick-look"
-        camera-controls
-        auto-rotate
-        camera-controls
-        animation-name="*"
-        autoplay 
-        shadow-intensity="1"
-        exposure="1"
-        environment-image="neutral"
         alt="3D Beam Model">
         
         <!-- AR Button -->
@@ -47,23 +39,50 @@
         </button>
 
     </model-viewer>
-
+    <script type="importmap">
+        {
+          "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@^0.172.0/build/three.module.min.js"
+          }
+        }
+        </script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const viewer = document.getElementById("arViewer");
-    
+        window.onload = function() {
+            const viewer = document.querySelector("#arViewer");
+        
+            if (!viewer) {
+                console.error("Model-viewer element not found!");
+                return;
+            }
+        
             viewer.addEventListener("load", () => {
                 console.log("Model loaded, checking animations...");
-                console.log(viewer.availableAnimations);  // Debug: See animation names
-    
-                if (viewer.availableAnimations.length > 0) {
-                    viewer.animationName = viewer.availableAnimations[0]; // Play the first animation
-                    viewer.play();
-                } else {
-                    console.warn("No animations found in the GLB model!");
+                console.log("Available animations:", viewer.availableAnimations);
+        
+                // Define the animations you want
+                const selectedAnimations = ["arrow_body.001Action", "Key|constraint_hinge.001|Action"];
+                let index = 0;
+        
+                function playNextAnimation() {
+                    if (selectedAnimations.length > 0) {
+                        viewer.animationName = selectedAnimations[index];
+                        viewer.play();
+                        console.log("Playing animation:", selectedAnimations[index]);
+        
+                        // Move to the next animation
+                        index = (index + 1) % selectedAnimations.length;
+        
+                        // Change animation every 5 seconds
+                        setTimeout(playNextAnimation, 5000);
+                    } else {
+                        console.warn("No matching animations found!");
+                    }
                 }
+        
+                // Start playing
+                playNextAnimation();
             });
-        });
+        };
     </script>
 
 </body>
