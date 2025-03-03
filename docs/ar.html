@@ -30,9 +30,12 @@
     <model-viewer 
         id="arViewer"
         auto-rotate
+        camera-controls
         autoplay ar ar-modes="webxr scene-viewer quick-look" scale="0.2 0.2 0.2" shadow-intensity="1"
         src="beam.glb" 
-        alt="3D Beam Model">
+        alt="3D Beam Model"
+        orientation="0 0 -0.7071 0.7071"
+        >
         
         <!-- AR Button -->
         <button slot="ar-button" style="
@@ -86,7 +89,7 @@
                         index = (index + 1) % selectedAnimations.length;
         
                         // Change animation every 5 seconds
-                        setTimeout(playNextAnimation, 5000);
+                        setTimeout(playNextAnimation, 8000);
                     } else {
                         console.warn("No matching animations found!");
                     }
