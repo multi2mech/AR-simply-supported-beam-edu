@@ -29,12 +29,12 @@
     <!-- Model Viewer Component -->
     <model-viewer 
         id="arViewer"
-        camera-controls touch-action="pan-y" autoplay ar ar-modes="webxr scene-viewer" scale="0.2 0.2 0.2" shadow-intensity="1"
+        camera-controls touch-action="pan-y" autoplay ar ar-modes="webxr scene-viewer quick-look" scale="0.2 0.2 0.2" shadow-intensity="1"
         src="beam.glb" 
         alt="3D Beam Model">
         
         <!-- AR Button -->
-        <button slot="ar-button" style="background-color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+        <button slot="ar-button" style="background-color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; display: block !important;">
             🚀 View in AR
         </button>
 
