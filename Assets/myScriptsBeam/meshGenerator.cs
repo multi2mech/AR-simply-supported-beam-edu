@@ -32,6 +32,7 @@ public class MeshGenerator : MonoBehaviour
     private GameObject momentumFillMeshObject;
 
     private bool drawUndeformedMeshQ = false;
+    private bool deformMainBeamQ = false;
     private bool drawMomentumMeshQ = false;
     public LoadingScheme loadingScheme;
     private Mesh momentumFillMesh;
@@ -77,8 +78,13 @@ public class MeshGenerator : MonoBehaviour
             meshRenderer.enabled = true;
             loadGeometriesAuxiliaries.SetLoads();
             loadGeometriesAuxiliaries.UpdateLoads();
+            loadGeometriesAuxiliaries.SetConstraints();
+            loadGeometriesAuxiliaries.UpdateConstraints();
 
-            
+            if (OVRInput.GetDown(OVRInput.RawButton.A)) {
+                drawUndeformedMeshQ = !drawUndeformedMeshQ; 
+                deformMainBeamQ = !deformMainBeamQ;
+            }
             
             double[,] matrix = loadingScheme.GetMatrix();
             double[] vector = loadingScheme.GetVector(); 
@@ -90,6 +96,7 @@ public class MeshGenerator : MonoBehaviour
             mathematicalSegment.SetResults(result.ToList());
             
             UpdateDeformedMesh(mathematicalSegment.GetSegments());
+            
             UpdateMomentumMesh(mathematicalSegment.GetSegments());
             
 
@@ -111,9 +118,9 @@ public class MeshGenerator : MonoBehaviour
             
 
             
-            if (OVRInput.GetDown(OVRInput.RawButton.A)) {
-                drawUndeformedMeshQ = !drawUndeformedMeshQ; // Example of toggling a boolean
-            }
+            // if (OVRInput.GetDown(OVRInput.RawButton.A)) {
+            //     drawUndeformedMeshQ = !drawUndeformedMeshQ; // Example of toggling a boolean
+            // }
 
             if (drawUndeformedMeshQ){
                 if (undeformedMeshObject == null)
@@ -178,22 +185,25 @@ void UpdateDeformedMesh(List<MathematicalSegment.Segment> segments){
     // }
     Vector3[] vertices = originalMesh.vertices;
     EQ_IV eq = new EQ_IV();
-    for (int i = 0; i < vertices.Length; i++)
-    {
-        Vector3 basePoint = beamPositioning.GetBaseCenter();
-        Vector3 vertex = vertices[i];
-        Vector3 distance = vertex - basePoint;
-        
-        float distanceAlongBeam = Mathf.Abs(Vector3.Dot(distance, beamPositioning.GetNormal()));
-        //int segmentIndex = Mathf.FloorToInt(distanceAlongBeam / beamPositioning.GetBeamLength() * beamSegments);
-        int segmentIndex = GetSegmentIndex(segments, distanceAlongBeam);
-        if (segmentIndex == -1)
+    if (deformMainBeamQ){
+
+        for (int i = 0; i < vertices.Length; i++)
         {
-            Debug.LogError("Segment index not found for distance: " + distanceAlongBeam + " over a length of " + beamPositioning.GetBeamLength());
+            Vector3 basePoint = beamPositioning.GetBaseCenter();
+            Vector3 vertex = vertices[i];
+            Vector3 distance = vertex - basePoint;
+            
+            float distanceAlongBeam = Mathf.Abs(Vector3.Dot(distance, beamPositioning.GetNormal()));
+            //int segmentIndex = Mathf.FloorToInt(distanceAlongBeam / beamPositioning.GetBeamLength() * beamSegments);
+            int segmentIndex = GetSegmentIndex(segments, distanceAlongBeam);
+            if (segmentIndex == -1)
+            {
+                Debug.LogError("Segment index not found for distance: " + distanceAlongBeam + " over a length of " + beamPositioning.GetBeamLength());
+            }
+            float deflection = eq.Get_v(distanceAlongBeam, segments[segmentIndex]);
+            
+            vertices[i] = vertex - deflection*beamPositioning.GetDeflectionDirection();
         }
-        float deflection = eq.Get_v(distanceAlongBeam, segments[segmentIndex]);
-        
-        vertices[i] = vertex - deflection*beamPositioning.GetDeflectionDirection();
     }
     // reassign it to the new mesh
     mesh.vertices = vertices;

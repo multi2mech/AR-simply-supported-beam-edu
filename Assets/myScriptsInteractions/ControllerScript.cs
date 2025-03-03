@@ -59,6 +59,15 @@ public class ControllerScript : MonoBehaviour
                     GameObject pointerObject = load.GetPointerObject();
                     Destroy(pointerObject);
                 }
+                List<Constraint> constraints = loadingScheme.GetConstraints();
+                foreach (Constraint constraint in constraints)
+                {
+                    GameObject constraintObject = constraint.GetObject();
+                    Destroy(constraintObject);
+                    GameObject constraintCommonObject = constraint.GetCommonObject();
+                    Destroy(constraintCommonObject);
+                }
+                
                 isButtonHeld = false; // Reset to prevent multiple triggers
             }
         }

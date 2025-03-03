@@ -157,12 +157,8 @@ public class EQ_IV
         double I = segment.I;
         double c1 = segment.c1;
         double c2 = segment.c2;
-        double c3 = segment.c3;
-        double c4 = segment.c4;
-        double qIIIInt = segment.qIIIInt;
-
        
-        M = (1/E*I) * (0 +c1* z + c2);
+        M = (1/E*I) * (c1* z + c2);
         
         return (float)M;
     }

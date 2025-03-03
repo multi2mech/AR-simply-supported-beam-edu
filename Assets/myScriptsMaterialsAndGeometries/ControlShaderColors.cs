@@ -8,10 +8,13 @@ public class UpdateShaderProperties : MonoBehaviour
     private float[] thresholds;
     private int numThresholds;
     [SerializeField] private Color[] mycolors = { 
-    new Color32(136, 118, 89, 255),  // Chamoisee (#887659)
-    new Color32(220, 201, 182, 255), // Dun (#DCC9B6)
-    new Color32(114, 125, 113, 255), // Reseda Green (#727D71)
-    new Color32(109, 76, 61, 255)    // Coffee (#6D4C3D)
+        new Color32(255, 255, 255, 255),  // Red (#FF0000)
+        new Color32(255, 255, 255, 255),  // Yellow (#FFFF00)
+        new Color32(255, 255, 255, 255),  // Green (#00FF00)
+        new Color32(136, 118, 89, 255),  // Chamoisee (#887659)
+        new Color32(109, 76, 61, 255),  // Coffee (#6D4C3D)
+        new Color32(220, 201, 182, 255), // Dun (#DCC9B6)
+        new Color32(114, 125, 113, 255) // Reseda Green (#727D71)
 };
 
 
@@ -53,7 +56,11 @@ public class UpdateShaderProperties : MonoBehaviour
             Vector4[] shaderColors = new Vector4[10];
             for (int i = 0; i < numThresholds && i < 10; i++)
             {
-                shaderColors[i] = mycolors[i];
+                // shaderColors[i] = mycolors[i];
+
+                shaderColors[i] = new Vector4(mycolors[i].r, mycolors[i].g, mycolors[i].b, mycolors[i].a);
+                // Debug.Log($"Assigning mycolors[{i}]: {mycolors[i]} as Vector4 {shaderColors[i]}");
+
             }
             // Debug.Log("Colors: " + string.Join(", ", shaderColors));
             targetMaterial.SetVectorArray("_Colors", shaderColors);

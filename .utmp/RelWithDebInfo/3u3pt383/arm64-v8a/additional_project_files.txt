@@ -1,0 +1,17 @@
+/Users/alessandromastrofini/LocalFiles/GameUnity/AR-simply-supported-beam-edu/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/GAToUnityCallbacks.h
+/Users/alessandromastrofini/LocalFiles/GameUnity/AR-simply-supported-beam-edu/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/MacroEnd.h
+/Users/alessandromastrofini/LocalFiles/GameUnity/AR-simply-supported-beam-edu/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/MacroHeaderBegin.h
+/Users/alessandromastrofini/LocalFiles/GameUnity/AR-simply-supported-beam-edu/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/MacroSourceBegin.h
+/Users/alessandromastrofini/LocalFiles/GameUnity/AR-simply-supported-beam-edu/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UGAApplication.h
+/Users/alessandromastrofini/LocalFiles/GameUnity/AR-simply-supported-beam-edu/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UGAConfiguration.h
+/Users/alessandromastrofini/LocalFiles/GameUnity/AR-simply-supported-beam-edu/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UGADebug.h
+/Users/alessandromastrofini/LocalFiles/GameUnity/AR-simply-supported-beam-edu/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UGAEvents.h
+/Users/alessandromastrofini/LocalFiles/GameUnity/AR-simply-supported-beam-edu/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UGAInput.h
+/Users/alessandromastrofini/LocalFiles/GameUnity/AR-simply-supported-beam-edu/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UGASoftKeyboard.h
+/Users/alessandromastrofini/LocalFiles/GameUnity/AR-simply-supported-beam-edu/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UGASoftKeyboardCallbacks.h
+/Users/alessandromastrofini/LocalFiles/GameUnity/AR-simply-supported-beam-edu/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UGATypes.h
+/Users/alessandromastrofini/LocalFiles/GameUnity/AR-simply-supported-beam-edu/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UGAVersion.h
+/Users/alessandromastrofini/LocalFiles/GameUnity/AR-simply-supported-beam-edu/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UnityToGACallbacks.h
+/Users/alessandromastrofini/LocalFiles/GameUnity/AR-simply-supported-beam-edu/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UnityToGAConfigurationCallbacks.h
+/Users/alessandromastrofini/LocalFiles/GameUnity/AR-simply-supported-beam-edu/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UnityToGAKeyEventCallbacks.h
+/Users/alessandromastrofini/LocalFiles/GameUnity/AR-simply-supported-beam-edu/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UnityToGAMotionEventCallbacks.h
