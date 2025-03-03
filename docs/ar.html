@@ -49,5 +49,23 @@
 
     </model-viewer>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const viewer = document.getElementById("viewer");
+    
+            viewer.addEventListener("load", () => {
+                console.log("Model loaded, checking animations...");
+                console.log(viewer.availableAnimations);  // Debug: See animation names
+    
+                if (viewer.availableAnimations.length > 0) {
+                    viewer.animationName = viewer.availableAnimations[0]; // Play the first animation
+                    viewer.play();
+                } else {
+                    console.warn("No animations found in the GLB model!");
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>
