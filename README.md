@@ -13,7 +13,7 @@ Simply download [Unity](https://unity.com/download), clone the repository, and o
 - [3D geometries](Assets/my3Dgeometries/) of loads and contraints (limited for now)
 - Scripts with [automatic generation of beam](Assets/myScriptsBeam/meshGenerator.cs) given its section, initial point and final points. It also incluse a ear clipping-based trinagulation algorithm.
 - Scripts to [solve the beam elasticity](Assets/myScriptsBeam/StructuralSolver.cs) eqautions given the desired loading scenario.
-- Automatical relation between beam, loads and constraints.
+- Automatic relations between beam, loads and constraints.
 - Interactions scripts between [controllar ray casting](Assets/myScriptsInteractions/) and 3D object (you can move loads or constraints)
 - Object textures
 
