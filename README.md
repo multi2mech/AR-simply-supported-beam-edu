@@ -1,4 +1,4 @@
-# Augmented Reality Beam Model
+# Augmented Reality Beam Model for Education
 
 Have a look at the [graphical presentation here](https://multi2mech.github.io/AR-simply-supported-beam-edu/)!
 
