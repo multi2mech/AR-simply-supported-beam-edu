@@ -104,10 +104,19 @@ public class LoadGeometriesAuxiliaries : MonoBehaviour
 
                 float positionRatioOld = load.positionRatio;
                 GameObject pointerObejct = load.GetPointerObject();
+                if (pointerObejct != null)
+                {
+                    LoadMovement loadMovement = pointerObejct.GetComponent<LoadMovement>();
+                    if (loadMovement != null)
+                    {
+                        loadMovement.SetMinMaxPositionRatio(load.GetMinMaxPositionRatio()[0], load.GetMinMaxPositionRatio()[1]);
+                    }
+                }
                 Vector3 objectPosition = pointerObejct.transform.position;
                 float delta = (position - objectPosition).magnitude;
                 if (delta > 0.01*beamLength){
                     float newRatio = (objectPosition - basePoint).magnitude / beamLength;
+                    
                     load.SetPositionRatio(newRatio);
                 }
                 
@@ -189,6 +198,7 @@ public class LoadGeometriesAuxiliaries : MonoBehaviour
                     LoadMovement mover = newCommonObject.GetComponent<LoadMovement>();
                     mover.SetMovableQ(load.movableQ);
                     mover.SetScalableQ(false);
+                    mover.SetMinMaxPositionRatio(load.GetMinMaxPositionRatio()[0], load.GetMinMaxPositionRatio()[1]);
                 }
                 Vector3 zAxis = Vector3.Cross(beamNormal, deflectionDirection).normalized;
                 Vector3 yAxis = Vector3.Cross(zAxis, beamNormal).normalized;
@@ -298,12 +308,19 @@ public class LoadGeometriesAuxiliaries : MonoBehaviour
             
             if (constraint.GetObject() != null)
             {   
+        
                 float positionRatioOld = constraint.positionRatio;
                 GameObject constraintObject = constraint.GetObject();
+                ConstraintMovement constraintMovement = constraintObject.GetComponent<ConstraintMovement>();
+                if (constraintMovement != null)
+                {
+                    constraintMovement.SetMinMaxPositionRatio(constraint.GetMinMaxPositionRatio()[0], constraint.GetMinMaxPositionRatio()[1]);
+                }
                 Vector3 objectPosition = constraintObject.transform.position;
                 float delta = (position - objectPosition).magnitude;
                 if (delta > 0.01*beamLength){
                     float newRatio = (objectPosition - basePoint).magnitude / beamLength;
+                    //Debug.LogError("MinMaxRatio: " + constraint.GetMinMaxPositionRatio());
                     constraint.SetPositionRatio(newRatio);
                 }
                 
@@ -391,8 +408,9 @@ public class LoadGeometriesAuxiliaries : MonoBehaviour
                         if (constraintMovementActual != null)
                         {
                             constraintMovementActual.SetMovable(constraint.movableQ);
+                            constraintMovementActual.SetMinMaxPositionRatio(constraint.GetMinMaxPositionRatio()[0], constraint.GetMinMaxPositionRatio()[1]);
                         }
-                                    
+
                         newObject.transform.parent = null;
                         newObject.transform.SetParent(null); // Ensure it's not parented to anything
                         

@@ -74,11 +74,31 @@ public class LoadMovement : MonoBehaviour
     public void SetScalableQ(bool scalable){
         scalableQ = scalable;
     }
-
-    public void SetPositionFactor(float min, float max){
-        minPositionFactor = min;
-        maxPositionFactor = max;
+    [SerializeField] private float _minRatioPosition;
+    public float minRatioPosition
+    {
+        get => _minRatioPosition; // Getter returns the private field
+        set => _minRatioPosition = value; // Setter updates the private field
     }
+
+
+    [SerializeField] private float _maxRatioPosition;
+    public float maxRatioPosition
+    {
+        get => _maxRatioPosition; // Getter returns the private field
+        set => _maxRatioPosition = value; // Setter updates the private field
+    }
+
+     public void SetMinMaxPositionRatio(float min, float max)
+        {
+            minRatioPosition = min;
+            maxRatioPosition = max;
+        }
+
+        public Vector2 GetMinMaxPositionRatio()
+        {
+            return new Vector2(minRatioPosition, maxRatioPosition);
+        }
     void Start()
     {
         
@@ -124,104 +144,82 @@ public class LoadMovement : MonoBehaviour
                 {
                 }
 
+                controllerTransform = rayComputation.controllerTransform;
+                
                 Quaternion calibrationOffset =  rayComputation.calibrationOffset;
                 Quaternion initialRotation =  selectionManager.initialControllerRotation;
-                controllerTransform = rayComputation.controllerTransform;
                 Quaternion currentRotation =  calibrationOffset * controllerTransform.rotation; 
-                Vector3 sourceVector = initialRotation * Vector3.forward;
-                Vector3 targetVector = currentRotation * Vector3.forward;
-                Quaternion rotation = Quaternion.FromToRotation(sourceVector, targetVector);
-
-                Quaternion relativeRotation = currentRotation * Quaternion.Inverse(initialRotation) ;
                 
-                Vector3 initialForward = initialRotation * Vector3.forward;
-                Vector3 currentForward = currentRotation * Vector3.forward;
-                Vector3 relativeForward = relativeRotation * Vector3.forward;
-
-                Debug.DrawLine(Vector3.zero, initialForward, Color.blue);
-                Debug.DrawLine(Vector3.zero, currentForward, Color.red);
-                Debug.DrawLine(Vector3.zero, relativeForward, Color.green);
-        
+                Quaternion relativeRotation = currentRotation * Quaternion.Inverse(initialRotation) ;           
 
                 Vector3 distanceVector = selectionManager.RayInitialDistance;
-                Debug.DrawLine(selectionManager.RayInitialOrigin, distanceVector, Color.gray, 1f);
-
-                //increment = UpdatePositionWithController(increment);
-                // Vector3 rotatedVector = relativeRotation * (distanceVector*increment);
-                // the 2 is used to enforce the distance being sure that the project is defien behind the beam
-                Vector3 rotatedVector = relativeRotation * (2* distanceVector);
                 
-                Vector3 newPosition = rayComputation.RayOrigin + rotatedVector;
-
-
-                Debug.DrawLine(rayComputation.RayOrigin, rotatedVector, Color.black, 1f);
+                Vector3 rotatedVector = relativeRotation * distanceVector;
                 
+                Vector3 newPosition = rayComputation.RayOrigin + initialRotation * distanceVector;
+        
+
+                // GameObject sphere3 = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                // sphere3.transform.position = rayComputation.RayOrigin + relativeRotation * distanceVector;
+                // sphere3.transform.localScale = Vector3.one * 0.2f; // Scale to diameter 0.2 → radius 0.1
+
+                // GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                // sphere.transform.position = rayComputation.RayOrigin;
+                // sphere.transform.localScale = Vector3.one * 0.2f; // Scale to diameter 0.2 → radius 0.1
                 
+                // GameObject sphere2 = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                // sphere2.transform.position = rayComputation.RayOrigin + distanceVector;
+                // sphere2.transform.localScale = Vector3.one * 0.2f; // Scale to diameter 0.2 → radius 0.1
+
+                Vector3 projectedPosition = Vector3.Project(newPosition - basePoint, beamDirection) + basePoint;
+
+                // transform.position = projectedPosition;
+                // return;
                 Vector3 movementVector = newPosition - transform.position;
                 float movementDirection = Vector3.Dot(movementVector, beamDirection);
                 float movementMagnitude = movementVector.magnitude;
                 Vector3 originalPosition = transform.position;
+               
                 if (movableQ) {
 
-                    Vector3 targetPosition = new Vector3(0,0,0);
+                    
+                    Vector3 targetPosition = projectedPosition;
                     
                     bool cond = !(OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger) > 0.1f) || (OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger) > 0.1f);
-  // Calculate normalized time (progress), clamped between 0 and 1
-                    float progress = 0;
+  
+                    float progress;
 
-                        // Smoothly interpolate the position using SmoothStep
                     
-                    if (!cond){
-                            //
-                            increment = 0;
-                            
-                            if (OVRInput.Get(OVRInput.RawButton.RThumbstickLeft) || OVRInput.Get(OVRInput.RawButton.LThumbstickLeft)){
-                                    Debug.Log("Right Thumbstick Up pressed.");
-                                    //transform.Translate(Vector3.forward * movingStep);
-                                    increment = - 0.005f *beamLength;
-                                }
-                                if (OVRInput.Get(OVRInput.RawButton.RThumbstickRight) || OVRInput.Get(OVRInput.RawButton.LThumbstickRight)){
-                                    Debug.Log("Right Thumbstick Down pressed.");
-                                    //transform.Translate(Vector3.back * movingStep);
-                                    increment =  0.005f *beamLength;
-                                }
-                            targetPosition = originalPosition + beamDirection * increment;
-                            elapsedTime1 += Time.deltaTime;
-                            progress =  Mathf.Clamp01(elapsedTime1 / 1f);
-                      
-
-                        }
-                        else
-                        
-                        {   
-                            increment = 0.05f *beamLength;
-                            //targetPosition = originalPosition + Mathf.Sign(movementDirection) * movementMagnitude * Time.deltaTime * beamDirection;
-                            if (movementMagnitude > 0.1*beamLength || movementMagnitude < -0.1*beamLength){
-                                increment =  Mathf.Sign(movementDirection)*0.05f *beamLength * Time.deltaTime;
-                            }
-                            else{
-                                increment = 0;
-                            }
-                            targetPosition = originalPosition +  increment  * beamDirection;
-                            elapsedTime2 += Time.deltaTime;
-                            progress = Mathf.Clamp01(elapsedTime2 / 1f);
-
-
-                        }
-                    
+                    elapsedTime2 += Time.deltaTime;
+                    progress = Mathf.Clamp01(elapsedTime2 / 1f);
 
                     
                     float smoothProgress = Mathf.SmoothStep(0f, 1f, progress);
 
-                    Vector3 expectedDistanceV1 = targetPosition - basePoint;
-                    Vector3 expectedDistanceV2 = targetPosition - endPoint;
-                    float maxDistance = (basePoint - endPoint).magnitude;
-                    //Debug.Log("LOADMOVER: Base point: " + basePoint + " End point: " + endPoint);
-                    float expectedDistanceMagnitude = Math.Max(expectedDistanceV1.magnitude, expectedDistanceV2.magnitude);
-                    //Debug.Log("LOADMOVER: Expected distance: " + expectedDistanceMagnitude + " max distance: " + maxDistance);
+                    // Vector3 expectedDistanceV1 = targetPosition - basePoint;
+                    // Vector3 expectedDistanceV2 = targetPosition - endPoint;
+                    // float maxDistance = (basePoint - endPoint).magnitude;
+                    // //Debug.Log("LOADMOVER: Base point: " + basePoint + " End point: " + endPoint);
+                    // float expectedDistanceMagnitude = Math.Max(expectedDistanceV1.magnitude, expectedDistanceV2.magnitude);
+                    // //Debug.Log("LOADMOVER: Expected distance: " + expectedDistanceMagnitude + " max distance: " + maxDistance);
 
-                    if (expectedDistanceMagnitude <= maxDistance){
-                        transform.position = Vector3.Lerp(originalPosition, targetPosition, smoothProgress);
+                    // if (expectedDistanceMagnitude <= maxDistance){
+                    //     transform.position = Vector3.Lerp(originalPosition, targetPosition, smoothProgress);
+                    // }
+
+                    Vector3 leftPoint = basePoint + GetMinMaxPositionRatio()[0] * (beamLength * beamDirection);
+                    Vector3 rightPoint = basePoint + GetMinMaxPositionRatio()[1] * (beamLength * beamDirection);
+
+                    // Vector3 expectedDistanceV1 = targetPosition - basePoint;
+                    // Vector3 expectedDistanceV2 = targetPosition - endPoint;
+                    Vector3 expectedDistanceLeft = targetPosition - leftPoint;
+                    Vector3 expectedDistanceRight = targetPosition - rightPoint;
+
+
+                    bool isInside = (Vector3.Dot(expectedDistanceLeft, beamDirection)>0) && (Vector3.Dot(expectedDistanceRight, beamDirection)<0);
+                    
+                    if (isInside){
+                        transform.position = Vector3.Lerp(transform.position, targetPosition, smoothProgress);
                     }
                     
                    

@@ -8,14 +8,26 @@ public class SelectionManager : MonoBehaviour
     public Quaternion initialControllerRotation { get; private set; } // Initial controller rotation when selected
     public bool debugQ = false;
     public Vector3 RayInitialOrigin { get; private set; } // Initial ray origin when selected
+
+    public bool useGlobalReference = true;
     public void SetSelectedTrue()
     {
         isSelected = true;
 
-        RayInitialDistance = GetComponent<RayComputation>().RayDistance;
-        RayInitialOrigin = GetComponent<RayComputation>().RayOrigin;
-        initialControllerRotation = GetComponent<RayComputation>().RayRotation;
+        
 
+        if (useGlobalReference) {
+        Transform controllerTransform = GetComponent<RayComputation>().controllerTransform;
+        RayInitialDistance = Quaternion.Inverse(controllerTransform.rotation) * 
+                     (transform.position - controllerTransform.position);
+        RayInitialOrigin = controllerTransform.position;
+        initialControllerRotation = controllerTransform.rotation;
+        }
+        else{
+            RayInitialDistance = GetComponent<RayComputation>().RayDistance;
+            RayInitialOrigin = GetComponent<RayComputation>().RayOrigin;
+            initialControllerRotation = GetComponent<RayComputation>().RayRotation;
+        }
         
         if (debugQ){             
             Debug.Log("Controller quaternion to angles: " + initialControllerRotation.eulerAngles);

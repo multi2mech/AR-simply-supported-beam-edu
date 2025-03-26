@@ -10,6 +10,7 @@ public class Constraint: IPositionable
     public ConstraintType type; // Type of the constraint
     public bool internalQ; // Whether the constraint is internal
 
+
     // Read-only property to retrieve degrees of freedom
      
      // Backing field for positionRatio
@@ -22,14 +23,32 @@ public class Constraint: IPositionable
         set => _positionRatio = value; // Setter updates the private field
     }
 
+    [SerializeField] private float _minRatioPosition;
+    public float minRatioPosition
+    {
+        get => _minRatioPosition; // Getter returns the private field
+        set => _minRatioPosition = value; // Setter updates the private field
+    }
+
+
+    [SerializeField] private float _maxRatioPosition;
+    public float maxRatioPosition
+    {
+        get => _maxRatioPosition; // Getter returns the private field
+        set => _maxRatioPosition = value; // Setter updates the private field
+    }
+
+
     // ✅ Constructor to initialize the fields
-    public Constraint(string name, float positionRatio, ConstraintType type, bool internalQ, bool movableQ)
+    public Constraint(string name, float positionRatio, ConstraintType type, bool internalQ, bool movableQ, float minRatioPosition = 0.0f, float maxRatioPosition = 1.0f)
     {
         this.name = name;
         this.positionRatio = positionRatio;
         this.type = type;
         this.internalQ = internalQ;
         this.movableQ = movableQ;
+        this.maxRatioPosition = maxRatioPosition;
+        this.minRatioPosition = minRatioPosition;
     }
        
 
@@ -50,6 +69,17 @@ public class Constraint: IPositionable
         public Vector3 GetPosition()
         {
             return position;
+        }
+
+        public void SetMinMaxPositionRatio(float min, float max)
+        {
+            minRatioPosition = min;
+            maxRatioPosition = max;
+        }
+
+        public Vector2 GetMinMaxPositionRatio()
+        {
+            return new Vector2(minRatioPosition, maxRatioPosition);
         }
 
         private GameObject constraintObject; // 3D object representing the constraint

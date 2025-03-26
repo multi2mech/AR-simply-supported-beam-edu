@@ -14,6 +14,21 @@ using UnityEngine;
             get => _positionRatio; // Getter returns the private field
             set => _positionRatio = value; // Setter updates the private field
         }
+
+    [SerializeField] private float _minRatioPosition;
+    public float minRatioPosition
+    {
+        get => _minRatioPosition; // Getter returns the private field
+        set => _minRatioPosition = value; // Setter updates the private field
+    }
+
+
+    [SerializeField] private float _maxRatioPosition;
+    public float maxRatioPosition
+    {
+        get => _maxRatioPosition; // Getter returns the private field
+        set => _maxRatioPosition = value; // Setter updates the private field
+    }
         public LoadType type; // Type of the constraint
         public bool movableQ = true; // Whether the constraint is internal
         public float magnitude = 1;   // Magnitude of the load
@@ -78,24 +93,39 @@ using UnityEngine;
             
         }
 
+        
+
         public GameObject GetMagnitudeObject()
         {
             return magnitudeObject;
         }
 
         private Vector3 originalPosition;
-    private double positionRatio1;
+    //private double positionRatio1;
 
-    public Load(string name, double positionRatio, LoadType type, int magnitude, bool internalQ, float minMultiplier, float maxMultiplier)
+    public Load(string name, double positionRatio, LoadType type, int magnitude, bool internalQ, float minMultiplier, float maxMultiplier, float minRatioPosition = 0.0f, float maxRatioPosition = 1.0f)
     {
         this.name = name;
-        positionRatio1 = positionRatio;
+        this.positionRatio = (float)positionRatio;
         this.type = type;
         this.magnitude = magnitude;
         this.internalQ = internalQ;
         this.minMultiplier = minMultiplier;
         this.maxMultiplier = maxMultiplier;
+        this.minRatioPosition = minRatioPosition;
+        this.maxRatioPosition = maxRatioPosition;
     }
+
+    public void SetMinMaxPositionRatio(float min, float max)
+        {
+            minRatioPosition = min;
+            maxRatioPosition = max;
+        }
+
+        public Vector2 GetMinMaxPositionRatio()
+        {
+            return new Vector2(minRatioPosition, maxRatioPosition);
+        }
 
     public void SetOriginalPosition(Vector3 positionIN)
         {
