@@ -7091,6 +7091,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: constraint_general
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 10a846cdcf7454928853bf687bc1c89b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9175552907236278165, guid: 10a846cdcf7454928853bf687bc1c89b, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -8144,8 +8148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bef1f9955ced446d8dda5a6b0f7ba32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hingeObject: {fileID: 1440612389}
-  rollerObject: {fileID: 1507970788}
+  hingeObject: {fileID: 526174102}
+  rollerObject: {fileID: 1803210317}
   commonJointObject: {fileID: 1464321981}
   constraintsMaterial: {fileID: 2100000, guid: e3937cc7c04404603aa80525ef7859c6, type: 2}
 --- !u!4 &615765759
@@ -18526,6 +18530,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: constraint_hinge
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7cdf5dcdbebb1415bb22144c8bef71f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5168122475622229194, guid: 7cdf5dcdbebb1415bb22144c8bef71f5, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -19406,6 +19414,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 10a846cdcf7454928853bf687bc1c89b, type: 3}
       propertyPath: m_Name
       value: constraint_roller
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 10a846cdcf7454928853bf687bc1c89b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9175552907236278165, guid: 10a846cdcf7454928853bf687bc1c89b, type: 3}
       propertyPath: m_IsActive
@@ -23905,6 +23917,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 10a846cdcf7454928853bf687bc1c89b, type: 3}
       propertyPath: m_Name
       value: constraint_pointer
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 10a846cdcf7454928853bf687bc1c89b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9175552907236278165, guid: 10a846cdcf7454928853bf687bc1c89b, type: 3}
       propertyPath: m_IsActive
