@@ -91,7 +91,7 @@ public class BeamPositioning : MonoBehaviour
         // Dot with camera's forward direction
         float orientation = UnityEngine.Vector3.Dot(normal.normalized, cameraForward.normalized);
         
-        if (orientation > 0)
+        if (orientation < 0)
         {
             // Swap the start and end points
             UnityEngine.Vector3 temp = basePoint;
