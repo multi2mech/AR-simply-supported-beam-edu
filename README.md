@@ -19,6 +19,10 @@ Simply download [Unity](https://unity.com/download), clone the repository, and o
 - Interactions between [controllar ray casting](Assets/myScriptsInteractions/) and 3D object (you can move loads or constraints)
 - Object textures
 
+## Disclaimer
+
+⚠️⚠️ This repository is still under active development and was primarily written live during hands-on teaching sessions. As such, parts of the code may be rough, inconsistent, or temporarily out of place. Some files originate from a more complex parent project, and the structure still needs to be cleaned and streamlined. Use it as a learning resource, but expect changes and improvements over time! ⚠️⚠️
+
 ## Extra
 
 This is a hands-on educational project designed for exploring beam elasticity theory in Augmented Reality (AR) and Virtual Reality (VR). You can download and experiment with the Unity project, modifying it to fit your needs. Alternatively, you can directly [download the .apk](https://github.com/multi2mech/AR-simply-supported-beam-edu/releases) file and install it on your Meta Quest headset for immediate use.
