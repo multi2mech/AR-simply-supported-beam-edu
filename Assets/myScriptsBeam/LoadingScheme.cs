@@ -53,6 +53,7 @@ public class LoadingScheme : MonoBehaviour
         
         constraints.Add(new Constraint(name: "Hinge", positionRatio: 0, type: ConstraintType.Hinge, internalQ: true, movableQ : false));
         constraints.Add(new Constraint(name: "Roller", positionRatio: (float)ratio_roller, type: ConstraintType.Roller, internalQ: true, movableQ: true));
+        constraints.Add(new Constraint(name: "Ddp", positionRatio: 1, type: ConstraintType.Ddp, internalQ: true, movableQ: false));
 
         GameObject parentObject = gameObject.transform.parent.gameObject;
 
@@ -130,9 +131,12 @@ public class LoadingScheme : MonoBehaviour
         double[] row13 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, -1, 0};
         double[] row14 = {0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0};
         double[] row15 = {0, 0, 0, 0, 0, 0, 1*zF_s1, 1, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0};
-        double[] row16 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0};
+        double[] row16 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1/(E*A)*zF_s2, -1/(E*A)};
         double[] row17 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0};
-        double[] row18 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1*zF_s2, -1, 0, 0, 0, 0};
+        double[] row18 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1/(E*I)*Math.Pow(zF_s2,2)/2, -1/(E*I)*zF_s2, -1/(E*I), 0, 0, 0};
+
+
+
 
         // Set rows collection for the matrix
         List<double[]> rows = new List<double[]>
@@ -160,7 +164,7 @@ public class LoadingScheme : MonoBehaviour
        
         vector = new double[]
         {
-           0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -force_scaled, 0, 0, 0, 0
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -force_scaled, 0, 0, 0, 0
         };
     }
 

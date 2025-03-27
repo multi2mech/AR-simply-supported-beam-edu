@@ -380,6 +380,11 @@ public class LoadGeometriesAuxiliaries : MonoBehaviour
                     newObject = Instantiate(constraintsGeometries.rollerObject, constraint.GetPosition(), Quaternion.identity);
                     newCommonObject = Instantiate(constraintsGeometries.commonJointObject, constraint.GetPosition(), Quaternion.identity);
                 }
+                else if (constraint.type == ConstraintType.Ddp)
+                {
+                    newObject = Instantiate(constraintsGeometries.ddpObject, constraint.GetPosition(), Quaternion.identity);
+                    newCommonObject = Instantiate(constraintsGeometries.commonJointObject, constraint.GetPosition(), Quaternion.identity);
+                }
                 else
                 {
                     Debug.LogError("Unknown constraint type: " + constraint.type);

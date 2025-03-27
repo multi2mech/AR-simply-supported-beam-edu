@@ -6,6 +6,7 @@ public class ConstraintsGeometries : MonoBehaviour
     public GameObject hingeObject; // Assign a 3D object prefab in the Inspector
     public GameObject rollerObject; // Assign a 3D object prefab in the Inspector
 
+    public GameObject ddpObject; // Assign a 3D object prefab in the Inspector
     public GameObject commonJointObject;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public Material constraintsMaterial;
@@ -41,6 +42,13 @@ public class ConstraintsGeometries : MonoBehaviour
             NormalizeObject(rollerObject);
             rollerObject.transform.position = new Vector3(0, 0, 0);
             HideObject(rollerObject);
+        }
+        if (ddpObject != null)
+        {
+            //AdjustPivot(hingeObject);
+            NormalizeObject(ddpObject);
+            ddpObject.transform.position = new Vector3(0, 0, 0);
+            HideObject(ddpObject);
         }
         if (commonJointObject != null)
         {

@@ -136,7 +136,8 @@ public enum ConstraintType
         {
             Roller,
             Hinge,
-            Fixed
+            Fixed,
+            Ddp
         }
 
 public struct dofFreeQ
