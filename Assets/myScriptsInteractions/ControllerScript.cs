@@ -11,6 +11,8 @@ public class ControllerScript : MonoBehaviour
     public float longPressDuration = 1.5f; // Time in seconds to consider a long press
     private float buttonPressTime = 0f;
     private bool isButtonHeld = false;
+
+    public BeamPositioning beamPositioning;
     void Start()
     {
         
@@ -22,10 +24,12 @@ public class ControllerScript : MonoBehaviour
         if (OVRInput.Get(OVRInput.RawButton.Y)) {
             Debug.Log("Y pressed.");
             if (pointerState != null)
-            {
+            {   
+                beamPositioning.UpdateRefencePoint();
+                beamPositioning.UpdateBeamProperties();
                 pointerState.DeactivatePointer();
                 beamGenerator.SetBoolDrawToTrue();
-                Debug.Log("Pointer deactivated.");
+                //Debug.Log("Pointer deactivated.");
             }
          }
 

@@ -8878,6 +8878,7 @@ MonoBehaviour:
   pointerState: {fileID: 640599989}
   loadingScheme: {fileID: 1093893636}
   longPressDuration: 1.5
+  beamPositioning: {fileID: 1211247055}
 --- !u!1 &646003397
 GameObject:
   m_ObjectHideFlags: 0
@@ -15815,6 +15816,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   start: {fileID: 766344163}
   end: {fileID: 1237999819}
+  reference: {fileID: 874319828}
 --- !u!114 &1211247056
 MonoBehaviour:
   m_ObjectHideFlags: 0
