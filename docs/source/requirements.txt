@@ -1,0 +1,5 @@
+sphinx
+myst_nb
+sphinx_rtd_theme
+rst2pdf
+sphinxcontrib-bibtex
