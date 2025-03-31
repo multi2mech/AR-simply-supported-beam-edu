@@ -54,7 +54,26 @@ latex_engine = 'pdflatex'  # o 'xelatex' o 'lualatex'
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'sphinx_rtd_theme'
+# html_theme = 'sphinx_rtd_theme'
+# html_static_path = ['_static']
+
 html_static_path = ['_static']
+html_js_files = []
+html_css_files = []
+
+html_extra_path = []
+
+html_theme_options = {
+    # your theme options here (optional)
+}
+
+html_use_index = True
+html_copy_source = True
+
+# This is the key:
+html_theme = 'sphinx_rtd_theme'  # or your theme
+html_theme_options = {}
+html_show_sourcelink = True
+html_show_sphinx = False
 
 nb_mime_priority_overrides = [('pdf', 'text/plain', 100)]
