@@ -51,7 +51,7 @@ The proejct structure is as follows:
 
 .. code-block:: text
 
-   project/
+   Unity_project_folder/
    │
    ├── T00_Common/                # Contains general documentation and common scripts
    │    │
