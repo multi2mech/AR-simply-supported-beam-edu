@@ -4,10 +4,10 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>References &mdash; AR for beams 2.0 documentation</title>
+  <title>References &mdash; AR for beams 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
 
   
   <!--[if lt IE 9]>
@@ -16,13 +16,37 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=1fc8a8fd"></script>
+        <script src="_static/documentation_options.js?v=2caa9db7"></script>
         <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Future Development" href="FutureDevelopment.html" /> 
+    <link rel="prev" title="Future Development" href="FutureDevelopment.html" />
+   
+  <!-- Your custom meta tags go here -->
+  <!-- Primary Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="title" content="AR Simply Supported Beam - Documentation">
+    <meta name="description" content="Technical documentation for the AR Simply Supported Beam educational project, including geometry, constraints, stress distribution, and more.">
+    <meta name="author" content="Multi2Mech Team">
+    <meta name="keywords" content="AR beam, Sphinx docs, structural analysis, finite elements, stress visualization, education">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://multi2mech.github.io/AR-simply-supported-beam-edu/documentation/">
+    <meta property="og:title" content="AR Simply Supported Beam - Documentation">
+    <meta property="og:description" content="Explore the AR-based educational tool for structural beam simulations. Full docs on geometry, loads, constraints, and results.">
+    <meta property="og:image" content="https://multi2mech.github.io/AR-simply-supported-beam-edu/documentation/_static/preview.png">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AR Simply Supported Beam - Documentation">
+    <meta name="twitter:description" content="Explore interactive structural beam simulations in AR. Full technical docs for the project.">
+    <meta name="twitter:image" content="https://multi2mech.github.io/AR-simply-supported-beam-edu/documentation/_static/preview.png">
+  ...
+
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -47,12 +71,16 @@
               <p class="caption" role="heading"><span class="caption-text">Unity</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="Unity/Unity.html">Unity</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Unity/beamGenerator.html">beamGenerator.cs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Unity/beamGenerator.html">Beam Generator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Unity/Geometries.html">Geometries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Unity/Constraints.html">Constraints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Unity/Loads.html">Loads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Unity/RayCasting.html">Ray Casting and interactions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Beam theory</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="Beam/BeamTheory.html">Beam theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Beam/BeamTheory.html#examples">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Beam/BeamTheoryWithC%23.html">Numerical solution with C#</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Extra</span></p>
@@ -92,7 +120,7 @@
 <div role="list" class="citation-list">
 <div class="citation" id="id2" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
-<p>C. J. Chuong and Y. C. Fung. On residual stresses in arteries. <em>Journal of Biomechanical Engineering</em>, 108(2):189–192, 1986. <a class="reference external" href="https://doi.org/10.1115/1.3138600">doi:10.1115/1.3138600</a>.</p>
+<p>Mark De Berg, Otfried Cheong, Marc Van Kreveld, and Mark Overmars. <em>Computational Geometry: Algorithms and Applications</em>. Springer Berlin Heidelberg, Berlin, Heidelberg, 2008. ISBN 978-3-540-77973-5 978-3-540-77974-2. <a class="reference external" href="https://doi.org/10.1007/978-3-540-77974-2">doi:10.1007/978-3-540-77974-2</a>.</p>
 </div>
 </div>
 </div>
@@ -110,7 +138,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2025, Alessandro Mastrofini.</p>
+    <p>&#169; Copyright 2025 - multi2mech.com - University of Rome Tor Vergata.</p>
   </div>
 
    

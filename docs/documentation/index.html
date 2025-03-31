@@ -4,10 +4,10 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome to Augmented Reality for beams project documentation! &mdash; AR for beams 2.0 documentation</title>
+  <title>Welcome to Augmented Reality for beams project documentation! &mdash; AR for beams 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
 
   
   <!--[if lt IE 9]>
@@ -16,13 +16,37 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=1fc8a8fd"></script>
+        <script src="_static/documentation_options.js?v=2caa9db7"></script>
         <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Unity" href="Unity/Unity.html" /> 
+    <link rel="next" title="Unity" href="Unity/Unity.html" />
+   
+  <!-- Your custom meta tags go here -->
+  <!-- Primary Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="title" content="AR Simply Supported Beam - Documentation">
+    <meta name="description" content="Technical documentation for the AR Simply Supported Beam educational project, including geometry, constraints, stress distribution, and more.">
+    <meta name="author" content="Multi2Mech Team">
+    <meta name="keywords" content="AR beam, Sphinx docs, structural analysis, finite elements, stress visualization, education">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://multi2mech.github.io/AR-simply-supported-beam-edu/documentation/">
+    <meta property="og:title" content="AR Simply Supported Beam - Documentation">
+    <meta property="og:description" content="Explore the AR-based educational tool for structural beam simulations. Full docs on geometry, loads, constraints, and results.">
+    <meta property="og:image" content="https://multi2mech.github.io/AR-simply-supported-beam-edu/documentation/_static/preview.png">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AR Simply Supported Beam - Documentation">
+    <meta name="twitter:description" content="Explore interactive structural beam simulations in AR. Full technical docs for the project.">
+    <meta name="twitter:image" content="https://multi2mech.github.io/AR-simply-supported-beam-edu/documentation/_static/preview.png">
+  ...
+
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -47,12 +71,16 @@
               <p class="caption" role="heading"><span class="caption-text">Unity</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="Unity/Unity.html">Unity</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Unity/beamGenerator.html">beamGenerator.cs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Unity/beamGenerator.html">Beam Generator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Unity/Geometries.html">Geometries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Unity/Constraints.html">Constraints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Unity/Loads.html">Loads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Unity/RayCasting.html">Ray Casting and interactions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Beam theory</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="Beam/BeamTheory.html">Beam theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Beam/BeamTheory.html#examples">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Beam/BeamTheoryWithC%23.html">Numerical solution with C#</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Extra</span></p>
@@ -91,12 +119,16 @@
 <p>Education project combining the use of Augmented Reality (AR) for the study of beams theory.</p>
 <a class="reference internal image-reference" href="_images/promo.gif"><img alt="Showcase" src="_images/promo.gif" style="height: 350px;" />
 </a>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Access the <a class="reference external" href="https://github.com/multi2mech/AR-simply-supported-beam-edu">the repository here</a>.</p>
+</div>
 </section>
 <section id="project-structure">
 <h2>Project Structure<a class="headerlink" href="#project-structure" title="Link to this heading"></a></h2>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>This repository is still under active development and was primarily written live during hands-on teaching sessions. As such, parts of the code may be rough, inconsistent, or temporarily out of place. Some files originate from a more complex parent project, and the structure still needs to be cleaned and streamlined. Use it as a learning resource, but expect changes and improvements over time!</p>
+<p><em>This repository is still under active development and was primarily written live during hands-on teaching sessions</em>. As such, parts of the code may be rough, inconsistent, or temporarily out of place. Some files originate from a more complex parent project, and the structure still needs to be cleaned and streamlined. Use it as a learning resource, but expect changes and improvements over time!</p>
 </div>
 <p>Repository can be cloned from the following link:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/multi2mech/AR-simply-supported-beam-edu.git
@@ -106,8 +138,8 @@
 <p class="admonition-title">Note</p>
 <p>The project is based on Unity for the AR development and a <a class="reference external" href="https://github.com/multi2mech/simply-supported-beam-edu">custom educational tool for beam theory on C#</a>.</p>
 </div>
-<section id="main-requirements-to-start-with-the-project">
-<h3>Main requirements to start with the project:<a class="headerlink" href="#main-requirements-to-start-with-the-project" title="Link to this heading"></a></h3>
+<section id="requirements">
+<h3>Requirements<a class="headerlink" href="#requirements" title="Link to this heading"></a></h3>
 <blockquote>
 <div><ul class="simple">
 <li><p><a class="reference external" href="https://unity.com/download">Unity</a>.</p></li>
@@ -117,8 +149,8 @@
 </div></blockquote>
 </section>
 <section id="main-components">
-<h3>Main components:<a class="headerlink" href="#main-components" title="Link to this heading"></a></h3>
-<p>The proejct structure is as follows:</p>
+<h3>Main components<a class="headerlink" href="#main-components" title="Link to this heading"></a></h3>
+<p>The project structure is as follows:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="Unity/Geometries.html#geometries"><span class="std std-ref">Geometries</span></a> - 3D geometries of loads and contraints (limited for now)</p></li>
 <li><p>Scripts with automatic generation of beam given its section, initial point and final points. It also incluse a ear clipping-based trinagulation algorithm.</p></li>
@@ -127,61 +159,53 @@
 <li><p>Interactions between controller ray casting and 3D object (you can move loads or constraints)</p></li>
 <li><p>Object textures</p></li>
 </ul>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>project/
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>root/
 │
-├── T00_Common/                # Contains general documentation and common scripts
+├── Assets/       # Contains general documentation and common scripts
 │    │
-│    ├── py/
-│    │    ├── myPatientsModulesV2/     # Contains modules related to patient data processing
-│    │    │   ├── patientMain.py       # Main script for patient data handling
-│    │    │   └── nrrdAux.py           # Auxiliary functions for NRRD file processing
-│    │    │
-│    │    ├── mesh-importer_v2/        # Contains mesh conversion tools
-│    │    │   └── meshConversion.py    # Main script for mesh conversion
-│    │    │
-│    │    ├── myModulesV2/             # General utility modules
-│    │    │   ├── postResults.py       # Functions to post-process results
-│    │    │   └── importMeshFromTXT.py # Functions to import meshes from TXT files
-│    │    │
-│    │    └── myAceplaque/             # Contains core meshing tools
-│    │        └── mesher.py            # Main meshing script
-│    ├── Elements/
-│    │   ├── Elements.nb
-│    │   ├── BoundaryPressureP2
-│    │   └── O2P1YG
+│    ├── my3Dgeometries/        # Contains 3D geometries of loads and constraints
 │    │
-│    ├── auxFncs/
-│    │   ├── myExpRoutines.m
-│    │   ├── myFileName.m
-│    │   ├── myLoading.m
-│    │   ├── myPostAuxialiars.m
-│    │   └── Kernel/
+│    ├── myScriptBeam/          # Contains scripts with automatic generation of beam given its section, initial point and final points. It also incluse a ear clipping-based trinagulation algorithm.
 │    │
-│    ├── createMPHmesh.m
-│    └── generate-interpolation-materials.wls
+│    ├── myScriptInteractions/  # Contains script to move object following the Meta XRay interaction
+│    │
+│    ├── myScriptsMaterialsAndGeometries/   # Containts script and assets to work with materials and shaders
+│    │
+│    └── Scenes/                # Contains the Unity scenes (main one and the initial one with the logo)
 │
-├── T01_Patient0/              # Contains patient-specific data
-│     ├── mesh/               # Patient-specific data
-│     │   ├── ...
-│     │
-│     └── growth.nb/
-│
-└── TXY_PatientABC
+└──  docs/                       # Documentation and resources
+      ├── documentation/        # Sphinx based documentation
+      │
+      └── index.html            # Landing page
 </pre></div>
 </div>
+</section>
+</section>
+<section id="table-of-contents">
+<h2>Table of contents<a class="headerlink" href="#table-of-contents" title="Link to this heading"></a></h2>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Unity</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="Unity/Unity.html">Unity</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Unity/Unity.html#extras">Extras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Unity/Unity.html">Unity</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="Unity/beamGenerator.html">beamGenerator.cs</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Unity/beamGenerator.html#extras">Extras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Unity/beamGenerator.html">Beam Generator</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Unity/beamGenerator.html#d-orientation">3D orientation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Unity/beamGenerator.html#mesh-generation">Mesh generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Unity/beamGenerator.html#deflection-and-deformed-beam">Deflection and deformed beam</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Unity/beamGenerator.html#beam-colors-and-segment-identication">Beam colors and segment identication</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="Unity/Geometries.html">Geometries</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Unity/Geometries.html#extras">Extras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Unity/Geometries.html">Geometries</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Unity/Constraints.html">Constraints</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Unity/Loads.html">Loads</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Unity/RayCasting.html">Ray Casting and interactions</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -189,12 +213,16 @@
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Beam theory</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="Beam/BeamTheory.html">Beam theory</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Beam/BeamTheory.html#extras">Extras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Beam/BeamTheory.html">Beam theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Beam/BeamTheory.html#examples">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Beam/BeamTheory.html#cantilever-beam">Cantilever beam</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Beam/BeamTheory.html#simply-supported-beam">Simply supported beam</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Beam/BeamTheoryWithC%23.html">Numerical solution with C#</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Beam/BeamTheoryWithC%23.html#extras">Extras</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Beam/BeamTheoryWithC%23.html#from-beam-theory-to-an-algebraic-system-of-equations">From beam theory to an algebraic system of equations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Beam/BeamTheoryWithC%23.html#linear-solve-in-c">Linear solve in C#</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Beam/BeamTheoryWithC%23.html#plot-solution">Plot solution</a></li>
 </ul>
 </li>
 </ul>
@@ -218,7 +246,6 @@
 </div>
 </section>
 </section>
-</section>
 
 
            </div>
@@ -230,7 +257,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2025, Alessandro Mastrofini.</p>
+    <p>&#169; Copyright 2025 - multi2mech.com - University of Rome Tor Vergata.</p>
   </div>
 
    

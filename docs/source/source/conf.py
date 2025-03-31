@@ -7,9 +7,9 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'AR for beams'
-copyright = '2025, Alessandro Mastrofini'
-author = 'Alessandro Mastrofini'
-release = '2.0'
+copyright = '2025 - multi2mech.com - University of Rome Tor Vergata'
+author = 'Alessandro Mastrofini, Michele Marino'
+release = '0.1.0'
 
 import os
 import sys
@@ -58,6 +58,7 @@ latex_engine = 'pdflatex'  # o 'xelatex' o 'lualatex'
 # html_static_path = ['_static']
 
 html_static_path = ['_static']
+templates_path = ['_templates']
 html_js_files = []
 html_css_files = []
 

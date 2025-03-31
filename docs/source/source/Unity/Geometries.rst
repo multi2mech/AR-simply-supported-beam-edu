@@ -3,11 +3,11 @@
 Geometries
 ============
 
-XXX
+Some usefull 3D geometries are included in the project. They are located in the folder ``Assets/my3Dgeometries``. The included geometries are the intial pointers, the force (arrow point and body) and several constraints:
 
-Extras
--------
-
+ - Hinge
+ - Roller
+ - Fixed
 
 
 

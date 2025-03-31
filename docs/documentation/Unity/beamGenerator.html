@@ -4,10 +4,10 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>beamGenerator.cs &mdash; AR for beams 2.0 documentation</title>
+  <title>Beam Generator &mdash; AR for beams 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
 
   
   <!--[if lt IE 9]>
@@ -16,14 +16,38 @@
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=1fc8a8fd"></script>
+        <script src="../_static/documentation_options.js?v=2caa9db7"></script>
         <script src="../_static/doctools.js?v=9a2dae69"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Geometries" href="Geometries.html" />
-    <link rel="prev" title="Unity" href="Unity.html" /> 
+    <link rel="prev" title="Unity" href="Unity.html" />
+   
+  <!-- Your custom meta tags go here -->
+  <!-- Primary Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="title" content="AR Simply Supported Beam - Documentation">
+    <meta name="description" content="Technical documentation for the AR Simply Supported Beam educational project, including geometry, constraints, stress distribution, and more.">
+    <meta name="author" content="Multi2Mech Team">
+    <meta name="keywords" content="AR beam, Sphinx docs, structural analysis, finite elements, stress visualization, education">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://multi2mech.github.io/AR-simply-supported-beam-edu/documentation/">
+    <meta property="og:title" content="AR Simply Supported Beam - Documentation">
+    <meta property="og:description" content="Explore the AR-based educational tool for structural beam simulations. Full docs on geometry, loads, constraints, and results.">
+    <meta property="og:image" content="https://multi2mech.github.io/AR-simply-supported-beam-edu/documentation/_static/preview.png">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AR Simply Supported Beam - Documentation">
+    <meta name="twitter:description" content="Explore interactive structural beam simulations in AR. Full technical docs for the project.">
+    <meta name="twitter:image" content="https://multi2mech.github.io/AR-simply-supported-beam-edu/documentation/_static/preview.png">
+  ...
+
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -48,17 +72,33 @@
               <p class="caption" role="heading"><span class="caption-text">Unity</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Unity.html">Unity</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">beamGenerator.cs</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#extras">Extras</a><ul class="simple">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Beam Generator</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#d-orientation">3D orientation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#beam-normal">Beam normal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deflection-direction">Deflection direction</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#mesh-generation">Mesh generation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cross-section">Cross-section</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#beam-mesh">Beam mesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#triangulation">Triangulation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#deflection-and-deformed-beam">Deflection and deformed beam</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#beam-colors-and-segment-identication">Beam colors and segment identication</a><ul class="simple">
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Geometries.html">Geometries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Constraints.html">Constraints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Loads.html">Loads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RayCasting.html">Ray Casting and interactions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Beam theory</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Beam/BeamTheory.html">Beam theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Beam/BeamTheory.html#examples">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Beam/BeamTheoryWithC%23.html">Numerical solution with C#</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Extra</span></p>
@@ -81,7 +121,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">beamGenerator.cs</li>
+      <li class="breadcrumb-item active">Beam Generator</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -90,11 +130,196 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="beamgenerator-cs">
-<span id="beamgenerator"></span><h1>beamGenerator.cs<a class="headerlink" href="#beamgenerator-cs" title="Link to this heading"></a></h1>
-<p>XXXX</p>
-<section id="extras">
-<h2>Extras<a class="headerlink" href="#extras" title="Link to this heading"></a></h2>
+  <section id="beam-generator">
+<span id="beamgenerator"></span><h1>Beam Generator<a class="headerlink" href="#beam-generator" title="Link to this heading"></a></h1>
+<p>Once the left and right pointers position is set (and the <code class="docutils literal notranslate"><span class="pre">Y</span></code> key is pressed on the left controller) the beam is drawned by:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">myScriptBeam/beamPosition.cs</span></code>:  is responsible for the position the initial and final point of the beam as well as computing the correct orientation of the beam normal and deflection direction.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">myScriptBeam/meshGenerator.cs</span></code>: is responsible for the generation of the mesh of the beam.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">myScriptBeam/baseSection.cs</span></code>: is responsible for the cross section definition.</p></li>
+</ul>
+<section id="d-orientation">
+<h2>3D orientation<a class="headerlink" href="#d-orientation" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>Once the pointers are set the beam need to be oriented. The referred GameObject stores the following information that will be used also for the movement of constraints and loads:</dt><dd><ul class="simple">
+<li><p>beam normal</p></li>
+<li><p>beam direction</p></li>
+<li><p>deflection direction</p></li>
+<li><p>initial and final points in world coordinates</p></li>
+</ul>
+</dd>
+</dl>
+<section id="beam-normal">
+<h3>Beam normal<a class="headerlink" href="#beam-normal" title="Link to this heading"></a></h3>
+</section>
+<section id="deflection-direction">
+<h3>Deflection direction<a class="headerlink" href="#deflection-direction" title="Link to this heading"></a></h3>
+</section>
+</section>
+<section id="mesh-generation">
+<h2>Mesh generation<a class="headerlink" href="#mesh-generation" title="Link to this heading"></a></h2>
+<p>The 3D beam is generated programmatically by defining:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The cross section</p></li>
+<li><p>Triangulation along the beam direction</p></li>
+<li><p>Initial and final faces</p></li>
+</ul>
+</div></blockquote>
+<section id="cross-section">
+<h3>Cross-section<a class="headerlink" href="#cross-section" title="Link to this heading"></a></h3>
+<p>Given the beam length <img class="math" src="../_images/math/19eef1966f7c545af3ac8c0fa486974d873e3c65.png" alt="L"/> and the cross-section sizes are combuted by considering a <img class="math" src="../_images/math/99ae06bf56d1b696dd7fa1adc6993c56d851b5b7.png" alt="1/10"/> ratio.
+<code class="docutils literal notranslate"><span class="pre">baseSection.cs</span></code> allows for different cross-section shapes. For instance a squared cross section is return with repsect the computed sizes:</p>
+<div class="highlight-c# notranslate"><div class="highlight"><pre><span></span><span class="k">private</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">Vector3</span><span class="p">[]</span><span class="w"> </span><span class="nf">GetRectangleSection</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">width</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">height</span><span class="p">,</span><span class="w"> </span><span class="n">BeamPositioning</span><span class="w"> </span><span class="n">beamPositioning</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">halfWidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">2</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">halfHeight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">height</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">2</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">Vector3</span><span class="p">[]</span><span class="w"> </span><span class="n">rectangle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Vector3</span><span class="p">[]</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">new</span><span class="w"> </span><span class="nf">Vector3</span><span class="p">(</span><span class="o">-</span><span class="n">halfWidth</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">halfHeight</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">),</span><span class="w"> </span><span class="c1">// Bottom left</span>
+<span class="w">        </span><span class="k">new</span><span class="w"> </span><span class="nf">Vector3</span><span class="p">(</span><span class="n">halfWidth</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">halfHeight</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">),</span><span class="w">  </span><span class="c1">// Bottom right</span>
+<span class="w">        </span><span class="k">new</span><span class="w"> </span><span class="nf">Vector3</span><span class="p">(</span><span class="n">halfWidth</span><span class="p">,</span><span class="w"> </span><span class="n">halfHeight</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">),</span><span class="w">   </span><span class="c1">// Top right</span>
+<span class="w">        </span><span class="k">new</span><span class="w"> </span><span class="nf">Vector3</span><span class="p">(</span><span class="o">-</span><span class="n">halfWidth</span><span class="p">,</span><span class="w"> </span><span class="n">halfHeight</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w">   </span><span class="c1">// Top left</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nf">TransformSection</span><span class="p">(</span><span class="n">rectangle</span><span class="p">,</span><span class="w"> </span><span class="n">beamPositioning</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Moreover, the section need to be oriented perpendicular to the beam section:</p>
+<div class="highlight-c# notranslate"><div class="highlight"><pre><span></span><span class="k">private</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">Vector3</span><span class="p">[]</span><span class="w"> </span><span class="nf">TransformSection</span><span class="p">(</span><span class="n">Vector3</span><span class="p">[]</span><span class="w"> </span><span class="n">section</span><span class="p">,</span><span class="w"> </span><span class="n">BeamPositioning</span><span class="w"> </span><span class="n">beamPositioning</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Vector3</span><span class="w"> </span><span class="n">center</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">beamPositioning</span><span class="p">.</span><span class="n">GetBaseCenter</span><span class="p">();</span>
+<span class="w">    </span><span class="n">Vector3</span><span class="w"> </span><span class="n">normal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">beamPositioning</span><span class="p">.</span><span class="n">GetNormal</span><span class="p">();</span>
+
+<span class="w">    </span><span class="n">Quaternion</span><span class="w"> </span><span class="n">rotation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Quaternion</span><span class="p">.</span><span class="n">FromToRotation</span><span class="p">(</span><span class="n">Vector3</span><span class="p">.</span><span class="n">forward</span><span class="p">,</span><span class="w"> </span><span class="n">normal</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">section</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">section</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rotation</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">section</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="w">        </span><span class="n">section</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">center</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">section</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="beam-mesh">
+<h3>Beam mesh<a class="headerlink" href="#beam-mesh" title="Link to this heading"></a></h3>
+<div class="highlight-c# notranslate"><div class="highlight"><pre><span></span><span class="c1">// from meshGenerator.cs</span>
+<span class="k">void</span><span class="w"> </span><span class="nf">GenerateBeamMesh</span><span class="p">()</span>
+<span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="kt">float</span><span class="w"> </span><span class="n">extrusionLength</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">beamPositioning</span><span class="p">.</span><span class="n">GetBeamLength</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">extrusionSteps</span><span class="p">;</span>
+<span class="w">     </span><span class="n">Vector3</span><span class="p">[]</span><span class="w"> </span><span class="n">baseSection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BaseSection</span><span class="p">.</span><span class="n">GetSection</span><span class="p">(</span><span class="n">sectionType</span><span class="p">,</span><span class="w"> </span><span class="n">beamPositioning</span><span class="p">.</span><span class="n">GetBeamLength</span><span class="p">(),</span><span class="w"> </span><span class="n">beamRatio</span><span class="p">,</span><span class="w"> </span><span class="n">beamPositioning</span><span class="p">);</span>
+<span class="w">     </span><span class="n">beamPositioning</span><span class="p">.</span><span class="n">SetBeamSectionSize</span><span class="p">(</span><span class="n">beamPositioning</span><span class="p">.</span><span class="n">GetBeamLength</span><span class="p">()</span><span class="o">/</span><span class="n">beamRatio</span><span class="p">);</span>
+<span class="w">     </span><span class="n">mesh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GenerateTheMesh</span><span class="p">(</span><span class="n">baseSection</span><span class="p">,</span><span class="w"> </span><span class="n">extrusionLength</span><span class="p">);</span>
+<span class="w">     </span><span class="n">originalMesh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Instantiate</span><span class="p">(</span><span class="n">mesh</span><span class="p">);</span>
+<span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+<p>To generate the beam the cross section (obtained from <code class="docutils literal notranslate"><span class="pre">myScriptBeam/BaseSection.cs</span></code>, with a fixed number of points <code class="docutils literal notranslate"><span class="pre">pts</span></code> ) is repeated <code class="docutils literal notranslate"><span class="pre">extrusionSteps</span></code> times along the beam direction such to haves <img class="math" src="../_images/math/28c3b1bac8afde93d0472720a8474f2f95236755.png" alt="extrusionSteps*pts"/> total points. Sequential cross sections are trinagulated by connecting the points of the cross section with the points of the next cross section as follows:</p>
+<div class="highlight-c# notranslate"><div class="highlight"><pre><span></span><span class="c1">// from meshGenerator.cs</span>
+<span class="k">private</span><span class="w"> </span><span class="n">Mesh</span><span class="w"> </span><span class="nf">GenerateTheMesh</span><span class="p">(</span><span class="n">Vector3</span><span class="p">[]</span><span class="w"> </span><span class="n">baseSection</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">extrusionLength</span><span class="p">){</span>
+
+<span class="w">    </span><span class="n">Vector3</span><span class="p">[]</span><span class="w"> </span><span class="n">vertices</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Vector3</span><span class="p">[</span><span class="n">baseSection</span><span class="p">.</span><span class="n">Length</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">extrusionSteps</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">)];</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">extrusionSteps</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">baseSection</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">vertices</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">baseSection</span><span class="p">.</span><span class="n">Length</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">baseSection</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">extrusionLength</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">beamPositioning</span><span class="p">.</span><span class="n">GetNormal</span><span class="p">();</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">quads</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">extrusionSteps</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">baseSection</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="p">[]</span><span class="w"> </span><span class="n">triangles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="p">[</span><span class="n">quads</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">6</span><span class="p">];</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">extrusionSteps</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">baseSection</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">current</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">baseSection</span><span class="p">.</span><span class="n">Length</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">j</span><span class="p">;</span>
+<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">baseSection</span><span class="p">.</span><span class="n">Length</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">baseSection</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span>
+<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">above</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">baseSection</span><span class="p">.</span><span class="n">Length</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">j</span><span class="p">;</span>
+<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">aboveNext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">baseSection</span><span class="p">.</span><span class="n">Length</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">baseSection</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span>
+
+<span class="w">            </span><span class="n">triangles</span><span class="p">[</span><span class="n">t</span><span class="o">++</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">current</span><span class="p">;</span>
+<span class="w">            </span><span class="n">triangles</span><span class="p">[</span><span class="n">t</span><span class="o">++</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">next</span><span class="p">;</span>
+<span class="w">            </span><span class="n">triangles</span><span class="p">[</span><span class="n">t</span><span class="o">++</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">above</span><span class="p">;</span>
+
+<span class="w">            </span><span class="n">triangles</span><span class="p">[</span><span class="n">t</span><span class="o">++</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">next</span><span class="p">;</span>
+<span class="w">            </span><span class="n">triangles</span><span class="p">[</span><span class="n">t</span><span class="o">++</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">aboveNext</span><span class="p">;</span>
+<span class="w">            </span><span class="n">triangles</span><span class="p">[</span><span class="n">t</span><span class="o">++</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">above</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Triangulate the base section</span>
+<span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">baseTriangles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EarClipping</span><span class="p">.</span><span class="n">Triangulate</span><span class="p">(</span><span class="n">baseSection</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">beamPositioning</span><span class="p">.</span><span class="n">GetNormal</span><span class="p">());</span>
+
+<span class="w">    </span><span class="c1">// Triangulate the cap section</span>
+<span class="w">    </span><span class="n">Vector3</span><span class="p">[]</span><span class="w"> </span><span class="n">capSection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Vector3</span><span class="p">[</span><span class="n">baseSection</span><span class="p">.</span><span class="n">Length</span><span class="p">];</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">baseSection</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">capSection</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vertices</span><span class="p">[</span><span class="n">extrusionSteps</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">baseSection</span><span class="p">.</span><span class="n">Length</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">];</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">capTriangles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EarClipping</span><span class="p">.</span><span class="n">Triangulate</span><span class="p">(</span><span class="n">capSection</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">beamPositioning</span><span class="p">.</span><span class="n">GetNormal</span><span class="p">());</span>
+
+<span class="w">    </span><span class="c1">// Reverse the winding order for the cap</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">capTriangles</span><span class="p">.</span><span class="n">Count</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="m">3</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Swap two vertices to reverse the triangle&#39;s winding order</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">capTriangles</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="w">        </span><span class="n">capTriangles</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">capTriangles</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">];</span>
+<span class="w">        </span><span class="n">capTriangles</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temp</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="p">[]</span><span class="w"> </span><span class="n">allTriangles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="p">[</span><span class="n">triangles</span><span class="p">.</span><span class="n">Length</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">baseTriangles</span><span class="p">.</span><span class="n">Count</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">capTriangles</span><span class="p">.</span><span class="n">Count</span><span class="p">];</span>
+<span class="w">    </span><span class="n">triangles</span><span class="p">.</span><span class="n">CopyTo</span><span class="p">(</span><span class="n">allTriangles</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">baseTriangles</span><span class="p">.</span><span class="n">Count</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">allTriangles</span><span class="p">[</span><span class="n">triangles</span><span class="p">.</span><span class="n">Length</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">baseTriangles</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">capTriangles</span><span class="p">.</span><span class="n">Count</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">allTriangles</span><span class="p">[</span><span class="n">triangles</span><span class="p">.</span><span class="n">Length</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">baseTriangles</span><span class="p">.</span><span class="n">Count</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">capTriangles</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">extrusionSteps</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">baseSection</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">mesh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Mesh</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">vertices</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vertices</span><span class="p">,</span>
+<span class="w">        </span><span class="n">triangles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">allTriangles</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="n">mesh</span><span class="p">.</span><span class="n">RecalculateNormals</span><span class="p">();</span>
+<span class="w">    </span><span class="n">mesh</span><span class="p">.</span><span class="n">RecalculateBounds</span><span class="p">();</span>
+<span class="w">    </span><span class="n">GetComponent</span><span class="o">&lt;</span><span class="n">MeshFilter</span><span class="o">&gt;</span><span class="p">().</span><span class="n">mesh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mesh</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">mesh</span><span class="p">;</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="triangulation">
+<h3>Triangulation<a class="headerlink" href="#triangulation" title="Link to this heading"></a></h3>
+<p>To ensure a perfect triangulation for the top and bottom cross section faces of the beam the ear clipping algorithm <span id="id1">[<a class="reference internal" href="../references.html#id2" title="Mark De Berg, Otfried Cheong, Marc Van Kreveld, and Mark Overmars. Computational Geometry: Algorithms and Applications. Springer Berlin Heidelberg, Berlin, Heidelberg, 2008. ISBN 978-3-540-77973-5 978-3-540-77974-2. doi:10.1007/978-3-540-77974-2.">1</a>]</span> is used. The triangulation is done in the <code class="docutils literal notranslate"><span class="pre">myScriptBeam/EarClipping.cs</span></code> script. The triangulation is done in the following steps:</p>
+<ol class="arabic simple">
+<li><p>The vertices of the cross section are sorted in a clockwise order.</p></li>
+<li><p>The ear clipping algorithm is applied to the sorted vertices to generate the triangles.</p></li>
+<li><p>The triangles are stored in a list and used to generate the mesh.</p></li>
+<li><p>The mesh is generated using the triangles and the vertices of the cross section.</p></li>
+</ol>
+</section>
+</section>
+<section id="deflection-and-deformed-beam">
+<h2>Deflection and deformed beam<a class="headerlink" href="#deflection-and-deformed-beam" title="Link to this heading"></a></h2>
+</section>
+<section id="beam-colors-and-segment-identication">
+<h2>Beam colors and segment identication<a class="headerlink" href="#beam-colors-and-segment-identication" title="Link to this heading"></a></h2>
 <div class="toctree-wrapper compound">
 </div>
 </section>
@@ -111,7 +336,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2025, Alessandro Mastrofini.</p>
+    <p>&#169; Copyright 2025 - multi2mech.com - University of Rome Tor Vergata.</p>
   </div>
 
    

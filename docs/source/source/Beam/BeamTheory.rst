@@ -9,8 +9,24 @@ Beam
 
    M(z) = - EI v^{ii}(z)
 
-Extras
--------
+
+Examples
+================
+
+Cantilever beam
+--------------------
+
+Simply supported beam
+------------------------
+
+
+Load on the extremity
+"""""""""""""""""""""""
+
+
+Movable load
+"""""""""""""""""""""""
+
 
 .. toctree::
    :maxdepth: 5  
