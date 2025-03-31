@@ -14,7 +14,9 @@ release = '2.0'
 import os
 import sys
 # sys.path.insert(0, os.path.abspath('../source/py/myAceplaque'))
-
+# sys.path.insert(0, os.path.abspath('../source/py/myModulesV2'))
+# sys.path.insert(0, os.path.abspath('../source/py/mesh-importer_v2'))
+# sys.path.insert(0, os.path.abspath('../source/py/myPatientsModulesV2'))
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
