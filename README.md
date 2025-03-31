@@ -8,6 +8,8 @@ This educational project integrates Augmented Reality (AR) using Meta Quest head
 
 ## How to Use
 
+Read the [documentation here](https://multi2mech.github.io/AR-simply-supported-beam-edu/documentation).
+
 Simply download [Unity](https://unity.com/download), clone the repository, and open it!
 
 You may need to install:
