@@ -67,13 +67,14 @@ html_theme_options = {
     # your theme options here (optional)
 }
 
-html_use_index = True
-html_copy_source = True
-
-# This is the key:
+# Set the output to use relative paths
 html_theme = 'sphinx_rtd_theme'  # or your theme
-html_theme_options = {}
-html_show_sourcelink = True
+html_baseurl = ''
+html_use_opensearch = False
+html_copy_source = False
 html_show_sphinx = False
+
+# 👇 THIS is the magic line:
+html_relative_urls = True  # THIS forces relative URLs for static assets
 
 nb_mime_priority_overrides = [('pdf', 'text/plain', 100)]
