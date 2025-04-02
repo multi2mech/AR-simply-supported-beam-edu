@@ -13,7 +13,7 @@ Augmented Reality
         auto-rotate
         camera-controls
         autoplay ar ar-modes="webxr scene-viewer quick-look" scale="0.2 0.2 0.2" 
-        src="../beam.glb" 
+        src="_static/beam.glb" 
         alt="3D Beam Model"
         environment-image="neutral"
         exposure="1.1"
