@@ -22,9 +22,35 @@ Once the pointers are set the beam need to be oriented. The referred GameObject 
 Beam normal
 """"""""""""""""""""""""""""""
 
+Beam normal is computed as the distance between the two pointers. This is done in ``myScriptBeam/beamPositioning.cs``. 
+
+.. code-block:: c#
+    // ....
+    beamVector = endPoint - basePoint;
+    beamDirection = beamVector.normalized;
+
 
 Deflection direction
 """"""""""""""""""""""""""""""
+
+The deflection is computed as the cross product of the vertical global axis and the beam direction. This is done in ``myScriptBeam/beamPositioning.cs`` by accuting also for the relative position of the pointers:
+
+.. code-block:: c#
+
+    public void ComputeDeflectionDirection()
+    {
+        UnityEngine.Vector3 globalDown =  UnityEngine.Vector3.down;
+        // // Step 1: Project global down onto the plane perpendicular to beamDirection
+        UnityEngine.Vector3 bottomVector = UnityEngine.Vector3.ProjectOnPlane(globalDown, beamDirection).normalized;
+        
+        // If it ends up pointing upward, flip it
+        if (UnityEngine.Vector3.Dot(bottomVector, UnityEngine.Vector3.down) > 0)
+        {
+            bottomVector = -bottomVector;
+        }
+        
+        deflectionVector = bottomVector;
+    }
 
 
 Mesh generation
@@ -69,15 +95,12 @@ Moreover, the section need to be oriented perpendicular to the beam section:
     {
         Vector3 center = beamPositioning.GetBaseCenter();
         Vector3 normal = beamPositioning.GetNormal();
-
         Quaternion rotation = Quaternion.FromToRotation(Vector3.forward, normal);
-
         for (int i = 0; i < section.Length; i++)
         {
             section[i] = rotation * section[i];
             section[i] += center;
         }
-
         return section;
     }
 
@@ -203,9 +226,110 @@ To ensure a perfect triangulation for the top and bottom cross section faces of 
 Deflection and deformed beam
 --------------------------------
 
+The beam deflection is computed by updating the position of each point of the mesh based on its mathematica segment (i.e. the coefficient of the deflection formula).
+
+.. code-block:: c#
+
+    void UpdateDeformedMesh(List<MathematicalSegment.Segment> segments){
+        Vector3[] vertices = originalMesh.vertices;
+        EQ_IV eq = new EQ_IV();
+        if (deformMainBeamQ){
+
+            for (int i = 0; i < vertices.Length; i++)
+            {
+                Vector3 basePoint = beamPositioning.GetBaseCenter();
+                Vector3 vertex = vertices[i];
+                Vector3 distance = vertex - basePoint;
+                
+                float distanceAlongBeam = Mathf.Abs(Vector3.Dot(distance, beamPositioning.GetNormal()));
+                int segmentIndex = GetSegmentIndex(segments, distanceAlongBeam);
+                float deflection = eq.Get_v(distanceAlongBeam, segments[segmentIndex]);
+                vertices[i] = vertex - deflection*beamPositioning.GetDeflectionDirection();
+            }
+        }
+        mesh.vertices = vertices; // reassign it to the new mesh
+        mesh.RecalculateNormals();
+        mesh.RecalculateBounds();
+        GetComponent<MeshFilter>().mesh = mesh;
+    }
+
+A similar structure is used to updated the visual of the bending moment.
 
 Beam colors and segment identication
 -------------------------------------
+
+Each mathematical segmented is represeted by a different color using a node-based shader:
+
+.. code-block:: c#
+
+    Shader "Custom/DistanceColorShader"
+    {
+        Properties
+        {
+            _ReferencePoint ("Reference Point", Vector) = (0, 0, 0, 1)  // Reference point for distance calculations
+            _NumThresholds ("Number of Thresholds", int) = 4  // Number of thresholds (passed from C#)
+        }
+        SubShader
+        {
+            Tags { "RenderType"="Opaque" }
+            Pass
+            {
+                CGPROGRAM
+                #pragma vertex vert
+                #pragma fragment frag
+                #include "UnityCG.cginc"
+
+                struct appdata_t
+                {
+                    float4 vertex : POSITION;
+                };
+
+                struct v2f
+                {
+                    float4 pos : SV_POSITION;
+                    float3 worldPos : TEXCOORD0;
+                };
+
+                float4 _ReferencePoint;   // Position reference
+                int _NumThresholds;       // Number of thresholds
+                float _Thresholds[10];    // Supports up to 10 distance thresholds
+                fixed4 _Colors[10];       // Supports up to 10 colors
+
+                v2f vert (appdata_t v)
+                {
+                    v2f o;
+                    o.pos = UnityObjectToClipPos(v.vertex);
+                    o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
+                    return o;
+                }
+
+                fixed4 frag (v2f i) : SV_Target
+                {
+                    // Compute distance from reference point
+                    float dist = distance(i.worldPos, _ReferencePoint.xyz);
+
+                    // Find the correct color index using floor()
+                    int index = 0;
+                    for (int j = 0; j < _NumThresholds; j++)
+                    {
+                        if (dist >= _Thresholds[j])
+                            index = j + 1;
+                    }
+
+                    // Clamp index to prevent out-of-bounds errors
+                    index = clamp(index, 0, _NumThresholds - 1);
+
+                    return _Colors[index]; // Return assigned color
+                }
+                ENDCG
+            }
+        }
+    }
+
+
+Note that color can be assigned directly by the GUI to the meshGenerator.
+
+
 
 
 .. toctree::

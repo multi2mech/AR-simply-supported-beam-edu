@@ -151,9 +151,27 @@
 </dl>
 <section id="beam-normal">
 <h3>Beam normal<a class="headerlink" href="#beam-normal" title="Link to this heading"></a></h3>
+<p>Beam normal is computed as the distance between the two pointers. This is done in <code class="docutils literal notranslate"><span class="pre">myScriptBeam/beamPositioning.cs</span></code>.</p>
 </section>
 <section id="deflection-direction">
 <h3>Deflection direction<a class="headerlink" href="#deflection-direction" title="Link to this heading"></a></h3>
+<p>The deflection is computed as the cross product of the vertical global axis and the beam direction. This is done in <code class="docutils literal notranslate"><span class="pre">myScriptBeam/beamPositioning.cs</span></code> by accuting also for the relative position of the pointers:</p>
+<div class="highlight-c# notranslate"><div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">ComputeDeflectionDirection</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">UnityEngine</span><span class="p">.</span><span class="n">Vector3</span><span class="w"> </span><span class="n">globalDown</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">UnityEngine</span><span class="p">.</span><span class="n">Vector3</span><span class="p">.</span><span class="n">down</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// // Step 1: Project global down onto the plane perpendicular to beamDirection</span>
+<span class="w">    </span><span class="n">UnityEngine</span><span class="p">.</span><span class="n">Vector3</span><span class="w"> </span><span class="n">bottomVector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UnityEngine</span><span class="p">.</span><span class="n">Vector3</span><span class="p">.</span><span class="n">ProjectOnPlane</span><span class="p">(</span><span class="n">globalDown</span><span class="p">,</span><span class="w"> </span><span class="n">beamDirection</span><span class="p">).</span><span class="n">normalized</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// If it ends up pointing upward, flip it</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">UnityEngine</span><span class="p">.</span><span class="n">Vector3</span><span class="p">.</span><span class="n">Dot</span><span class="p">(</span><span class="n">bottomVector</span><span class="p">,</span><span class="w"> </span><span class="n">UnityEngine</span><span class="p">.</span><span class="n">Vector3</span><span class="p">.</span><span class="n">down</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">bottomVector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">bottomVector</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">deflectionVector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bottomVector</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </section>
 </section>
 <section id="mesh-generation">
@@ -192,15 +210,12 @@
 <span class="p">{</span>
 <span class="w">    </span><span class="n">Vector3</span><span class="w"> </span><span class="n">center</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">beamPositioning</span><span class="p">.</span><span class="n">GetBaseCenter</span><span class="p">();</span>
 <span class="w">    </span><span class="n">Vector3</span><span class="w"> </span><span class="n">normal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">beamPositioning</span><span class="p">.</span><span class="n">GetNormal</span><span class="p">();</span>
-
 <span class="w">    </span><span class="n">Quaternion</span><span class="w"> </span><span class="n">rotation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Quaternion</span><span class="p">.</span><span class="n">FromToRotation</span><span class="p">(</span><span class="n">Vector3</span><span class="p">.</span><span class="n">forward</span><span class="p">,</span><span class="w"> </span><span class="n">normal</span><span class="p">);</span>
-
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">section</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
 <span class="w">        </span><span class="n">section</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rotation</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">section</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
 <span class="w">        </span><span class="n">section</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">center</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
-
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">section</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
@@ -317,9 +332,102 @@
 </section>
 <section id="deflection-and-deformed-beam">
 <h2>Deflection and deformed beam<a class="headerlink" href="#deflection-and-deformed-beam" title="Link to this heading"></a></h2>
+<p>The beam deflection is computed by updating the position of each point of the mesh based on its mathematica segment (i.e. the coefficient of the deflection formula).</p>
+<div class="highlight-c# notranslate"><div class="highlight"><pre><span></span><span class="k">void</span><span class="w"> </span><span class="nf">UpdateDeformedMesh</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">MathematicalSegment</span><span class="p">.</span><span class="n">Segment</span><span class="o">&gt;</span><span class="w"> </span><span class="n">segments</span><span class="p">){</span>
+<span class="w">    </span><span class="n">Vector3</span><span class="p">[]</span><span class="w"> </span><span class="n">vertices</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">originalMesh</span><span class="p">.</span><span class="n">vertices</span><span class="p">;</span>
+<span class="w">    </span><span class="n">EQ_IV</span><span class="w"> </span><span class="n">eq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">EQ_IV</span><span class="p">();</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">deformMainBeamQ</span><span class="p">){</span>
+
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">vertices</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">Vector3</span><span class="w"> </span><span class="n">basePoint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">beamPositioning</span><span class="p">.</span><span class="n">GetBaseCenter</span><span class="p">();</span>
+<span class="w">            </span><span class="n">Vector3</span><span class="w"> </span><span class="n">vertex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vertices</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="w">            </span><span class="n">Vector3</span><span class="w"> </span><span class="n">distance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vertex</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">basePoint</span><span class="p">;</span>
+
+<span class="w">            </span><span class="kt">float</span><span class="w"> </span><span class="n">distanceAlongBeam</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Mathf</span><span class="p">.</span><span class="n">Abs</span><span class="p">(</span><span class="n">Vector3</span><span class="p">.</span><span class="n">Dot</span><span class="p">(</span><span class="n">distance</span><span class="p">,</span><span class="w"> </span><span class="n">beamPositioning</span><span class="p">.</span><span class="n">GetNormal</span><span class="p">()));</span>
+<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">segmentIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GetSegmentIndex</span><span class="p">(</span><span class="n">segments</span><span class="p">,</span><span class="w"> </span><span class="n">distanceAlongBeam</span><span class="p">);</span>
+<span class="w">            </span><span class="kt">float</span><span class="w"> </span><span class="n">deflection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">eq</span><span class="p">.</span><span class="n">Get_v</span><span class="p">(</span><span class="n">distanceAlongBeam</span><span class="p">,</span><span class="w"> </span><span class="n">segments</span><span class="p">[</span><span class="n">segmentIndex</span><span class="p">]);</span>
+<span class="w">            </span><span class="n">vertices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vertex</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">deflection</span><span class="o">*</span><span class="n">beamPositioning</span><span class="p">.</span><span class="n">GetDeflectionDirection</span><span class="p">();</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">mesh</span><span class="p">.</span><span class="n">vertices</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vertices</span><span class="p">;</span><span class="w"> </span><span class="c1">// reassign it to the new mesh</span>
+<span class="w">    </span><span class="n">mesh</span><span class="p">.</span><span class="n">RecalculateNormals</span><span class="p">();</span>
+<span class="w">    </span><span class="n">mesh</span><span class="p">.</span><span class="n">RecalculateBounds</span><span class="p">();</span>
+<span class="w">    </span><span class="n">GetComponent</span><span class="o">&lt;</span><span class="n">MeshFilter</span><span class="o">&gt;</span><span class="p">().</span><span class="n">mesh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mesh</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>A similar structure is used to updated the visual of the bending moment.</p>
 </section>
 <section id="beam-colors-and-segment-identication">
 <h2>Beam colors and segment identication<a class="headerlink" href="#beam-colors-and-segment-identication" title="Link to this heading"></a></h2>
+<p>Each mathematical segmented is represeted by a different color using a node-based shader:</p>
+<div class="highlight-c# notranslate"><div class="highlight"><pre><span></span><span class="n">Shader</span><span class="w"> </span><span class="s">&quot;Custom/DistanceColorShader&quot;</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Properties</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">_ReferencePoint</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;Reference Point&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">Vector</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w">  </span><span class="c1">// Reference point for distance calculations</span>
+<span class="w">        </span><span class="n">_NumThresholds</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;Number of Thresholds&quot;</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="w">  </span><span class="c1">// Number of thresholds (passed from C#)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">SubShader</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Tags</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;RenderType&quot;</span><span class="o">=</span><span class="s">&quot;Opaque&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="n">Pass</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">CGPROGRAM</span>
+<span class="w">            </span><span class="cp">#pragma vertex vert</span>
+<span class="w">            </span><span class="cp">#pragma fragment frag</span>
+<span class="w">            </span><span class="err">#</span><span class="n">include</span><span class="w"> </span><span class="s">&quot;UnityCG.cginc&quot;</span>
+
+<span class="w">            </span><span class="k">struct</span><span class="w"> </span><span class="nc">appdata_t</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="n">float4</span><span class="w"> </span><span class="n">vertex</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">POSITION</span><span class="p">;</span>
+<span class="w">            </span><span class="p">};</span>
+
+<span class="w">            </span><span class="k">struct</span><span class="w"> </span><span class="nc">v2f</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="n">float4</span><span class="w"> </span><span class="n">pos</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">SV_POSITION</span><span class="p">;</span>
+<span class="w">                </span><span class="n">float3</span><span class="w"> </span><span class="n">worldPos</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">TEXCOORD0</span><span class="p">;</span>
+<span class="w">            </span><span class="p">};</span>
+
+<span class="w">            </span><span class="n">float4</span><span class="w"> </span><span class="n">_ReferencePoint</span><span class="p">;</span><span class="w">   </span><span class="c1">// Position reference</span>
+<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">_NumThresholds</span><span class="p">;</span><span class="w">       </span><span class="c1">// Number of thresholds</span>
+<span class="w">            </span><span class="kt">float</span><span class="w"> </span><span class="n">_Thresholds</span><span class="p">[</span><span class="m">10</span><span class="p">];</span><span class="w">    </span><span class="c1">// Supports up to 10 distance thresholds</span>
+<span class="w">            </span><span class="n">fixed4</span><span class="w"> </span><span class="n">_Colors</span><span class="p">[</span><span class="m">10</span><span class="p">];</span><span class="w">       </span><span class="c1">// Supports up to 10 colors</span>
+
+<span class="w">            </span><span class="n">v2f</span><span class="w"> </span><span class="nf">vert</span><span class="w"> </span><span class="p">(</span><span class="n">appdata_t</span><span class="w"> </span><span class="n">v</span><span class="p">)</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="n">v2f</span><span class="w"> </span><span class="n">o</span><span class="p">;</span>
+<span class="w">                </span><span class="n">o</span><span class="p">.</span><span class="n">pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UnityObjectToClipPos</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">vertex</span><span class="p">);</span>
+<span class="w">                </span><span class="n">o</span><span class="p">.</span><span class="n">worldPos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mul</span><span class="p">(</span><span class="n">unity_ObjectToWorld</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">vertex</span><span class="p">).</span><span class="n">xyz</span><span class="p">;</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">o</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+
+<span class="w">            </span><span class="n">fixed4</span><span class="w"> </span><span class="nf">frag</span><span class="w"> </span><span class="p">(</span><span class="n">v2f</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">SV_Target</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="c1">// Compute distance from reference point</span>
+<span class="w">                </span><span class="kt">float</span><span class="w"> </span><span class="n">dist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">distance</span><span class="p">(</span><span class="n">i</span><span class="p">.</span><span class="n">worldPos</span><span class="p">,</span><span class="w"> </span><span class="n">_ReferencePoint</span><span class="p">.</span><span class="n">xyz</span><span class="p">);</span>
+
+<span class="w">                </span><span class="c1">// Find the correct color index using floor()</span>
+<span class="w">                </span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span>
+<span class="w">                </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">_NumThresholds</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">dist</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">_Thresholds</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+<span class="w">                        </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">;</span>
+<span class="w">                </span><span class="p">}</span>
+
+<span class="w">                </span><span class="c1">// Clamp index to prevent out-of-bounds errors</span>
+<span class="w">                </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">clamp</span><span class="p">(</span><span class="n">index</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">_NumThresholds</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">1</span><span class="p">);</span>
+
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">_Colors</span><span class="p">[</span><span class="n">index</span><span class="p">];</span><span class="w"> </span><span class="c1">// Return assigned color</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="n">ENDCG</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Note that color can be assigned directly by the GUI to the meshGenerator.</p>
 <div class="toctree-wrapper compound">
 </div>
 </section>
