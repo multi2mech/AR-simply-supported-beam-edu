@@ -7,7 +7,8 @@
   <title>Beam theory &mdash; AR for beams 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
 
   
   <!--[if lt IE 9]>
@@ -19,11 +20,13 @@
         <script src="../_static/documentation_options.js?v=2caa9db7"></script>
         <script src="../_static/doctools.js?v=9a2dae69"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Numerical solution with C#" href="BeamTheoryWithC%23.html" />
-    <link rel="prev" title="Ray Casting and interactions" href="../Unity/RayCasting.html" />
+    <link rel="prev" title="Unity" href="../Unity/Unity.html" />
    
   <!-- Your custom meta tags go here -->
   <!-- Primary Meta Tags -->
@@ -71,12 +74,12 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Unity</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../Unity/Unity.html">Unity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Unity/beamGenerator.html">Beam Generator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Unity/Geometries.html">Geometries</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Unity/Constraints.html">Constraints</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Unity/Loads.html">Loads</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Unity/RayCasting.html">Ray Casting and interactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Unity/Unity.html">Unity</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Beam theory</span></p>
 <ul class="current">
@@ -96,6 +99,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Extra</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../AR.html">Augmented Reality</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../FutureDevelopment.html">Future Development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
 </ul>
@@ -128,6 +132,20 @@
 <p>Beam</p>
 <div class="math">
 <p><img src="../_images/math/07f2d3367fcc12c4093443fe366a2fba6a8253f1.png" alt="M(z) = - EI v^{ii}(z)"/></p>
+</div><p>By integrating:</p>
+<div class="math">
+<p><img src="../_images/math/b1c662d79a57bfef40330f69a7f687cefda45ade.png" alt="\left\{
+\begin{aligned}
+&amp;v(z) = \frac{1}{EI} \iiint q(z) \,dz^3 + \frac{1}{EI} c_1 \frac{z^3}{6} + \frac{1}{EI} c_2 \frac{z^2}{2} + \frac{1}{EI} c_3 z + \frac{1}{EI} c_4 \\
+&amp;v^{I}(z) = \frac{1}{EI} \iint q(z) \,dz^2 + \frac{1}{EI} c_1 \frac{z^2}{2} + \frac{1}{EI} c_2 z + \frac{1}{EI} c_3 \\
+&amp;v^{II}(z) = \frac{1}{EI} \int q(z) \,dz + \frac{1}{EI} c_1 z + \frac{1}{EI} c_2 \\
+&amp;v^{III}(z) = \frac{1}{EI} q(z) + \frac{1}{EI} c_1 \\
+&amp;v^{IV}(z) = \frac{1}{EI} q(z) \\
+&amp;w(z) = -\frac{1}{EA} \iint p(z) \,dz^2 + \frac{1}{EA} c_5 z + \frac{1}{EA} c_6 \\
+&amp;w^{I}(z) = -\frac{1}{EA} \int p(z) \,dz + \frac{1}{EA} c_5 \\
+&amp;w^{II}(z) = -\frac{1}{EA} p(z)
+\end{aligned}
+\right. \quad + \text{B.C.}"/></p>
 </div></section>
 <section id="examples">
 <h1>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h1>
@@ -151,7 +169,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../Unity/RayCasting.html" class="btn btn-neutral float-left" title="Ray Casting and interactions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../Unity/Unity.html" class="btn btn-neutral float-left" title="Unity" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="BeamTheoryWithC%23.html" class="btn btn-neutral float-right" title="Numerical solution with C#" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

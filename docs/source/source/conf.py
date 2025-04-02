@@ -31,7 +31,8 @@ extensions = [
     'sphinx.ext.imgmath',  # Genera immagini delle equazioni
     'rst2pdf.pdfbuilder',
     'mathematica_symbols',
-    'sphinxcontrib.bibtex'
+    'sphinxcontrib.bibtex',
+    'sphinx_copybutton'
 ]
 
 nb_execution_mode = 'off'  # or 'force', 'off', 'cache'

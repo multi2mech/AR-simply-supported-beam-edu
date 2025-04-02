@@ -84,12 +84,13 @@ Table of contents
    :maxdepth: 2
    :caption: Unity
 
-   Unity/Unity
+   
    Unity/beamGenerator
    Unity/Geometries
    Unity/Constraints
    Unity/Loads
    Unity/RayCasting
+   Unity/Unity
    
    
 .. toctree::
@@ -103,6 +104,7 @@ Table of contents
    :maxdepth: 2
    :caption: Extra
 
+   AR
    FutureDevelopment
    references
    

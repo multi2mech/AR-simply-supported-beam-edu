@@ -7,7 +7,8 @@
   <title>Loads &mdash; AR for beams 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
 
   
   <!--[if lt IE 9]>
@@ -19,6 +20,8 @@
         <script src="../_static/documentation_options.js?v=2caa9db7"></script>
         <script src="../_static/doctools.js?v=9a2dae69"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -71,14 +74,21 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Unity</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="Unity.html">Unity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="beamGenerator.html">Beam Generator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Geometries.html">Geometries</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Constraints.html">Constraints</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Loads</a><ul class="simple">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Loads</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#class-definition">Class Definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fields-and-properties">Fields and Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#methods">Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#enum-loadtype">Enum: LoadType</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="RayCasting.html">Ray Casting and interactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Unity.html">Unity</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Beam theory</span></p>
 <ul>
@@ -88,6 +98,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Extra</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../AR.html">Augmented Reality</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../FutureDevelopment.html">Future Development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
 </ul>
@@ -117,9 +128,118 @@
              
   <section id="loads">
 <span id="id1"></span><h1>Loads<a class="headerlink" href="#loads" title="Link to this heading"></a></h1>
-<p>XXXX</p>
+<p>From <code class="docutils literal notranslate"><span class="pre">myScriptBeam/LoadingScheme.cs</span></code>:</p>
+<div class="highlight-c# notranslate"><div class="highlight"><pre><span></span><span class="n">loads</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Load</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Load1&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">positionRatio</span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">ratio_load</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="p">:</span><span class="w"> </span><span class="n">LoadType</span><span class="p">.</span><span class="n">Force</span><span class="p">,</span><span class="w"> </span><span class="n">magnitude</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">internalQ</span><span class="p">:</span><span class="w"> </span><span class="k">false</span><span class="p">,</span><span class="w"> </span><span class="n">minMultiplier</span><span class="p">:</span><span class="w"> </span><span class="m">0.5f</span><span class="p">,</span><span class="w"> </span><span class="n">maxMultiplier</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="p">));</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The following documentation is partially AI generated.</p>
+</div>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#overview" id="id2">Overview</a></p></li>
+<li><p><a class="reference internal" href="#class-definition" id="id3">Class Definition</a></p></li>
+<li><p><a class="reference internal" href="#fields-and-properties" id="id4">Fields and Properties</a></p></li>
+<li><p><a class="reference internal" href="#methods" id="id5">Methods</a></p></li>
+<li><p><a class="reference internal" href="#enum-loadtype" id="id6">Enum: LoadType</a></p></li>
+</ul>
+</nav>
+<section id="overview">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">Overview</a><a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">Load</span></code> class in Unity represents a force or constraint applied to a structure. It implements the <code class="docutils literal notranslate"><span class="pre">IPositionable</span></code> interface and includes properties related to its magnitude, type, and spatial constraints. The load can be moved, scaled, and linked with 3D GameObjects to represent it visually in the scene.</p>
+<p>It supports serialization, making it editable from the Unity Inspector.</p>
+</section>
+<section id="class-definition">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Class Definition</a><a class="headerlink" href="#class-definition" title="Link to this heading"></a></h2>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="na">[System.Serializable]</span>
+<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Load</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">IPositionable</span>
+</pre></div>
+</div>
+</section>
+<section id="fields-and-properties">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Fields and Properties</a><a class="headerlink" href="#fields-and-properties" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">string</span> <span class="pre">name</span></code>
+The name of the load.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LoadType</span> <span class="pre">type</span></code>
+Type of the load (Force, Torque, DistributedForce).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">float</span> <span class="pre">magnitude</span></code>
+The numeric strength of the load (default: 1).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bool</span> <span class="pre">movableQ</span></code>
+Whether the load is movable.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bool</span> <span class="pre">scalableQ</span></code>
+Whether the load is scalable.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bool</span> <span class="pre">internalQ</span></code>
+Whether the load is internal to the system.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">float</span> <span class="pre">positionRatio</span></code>
+Position of the load along the beam (0–1).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">float</span> <span class="pre">minRatioPosition,</span> <span class="pre">maxRatioPosition</span></code>
+Range within which the load can be positioned.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">float</span> <span class="pre">minMultiplier,</span> <span class="pre">maxMultiplier</span></code>
+Multiplier limits for scalable loads.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GameObject</span> <span class="pre">magnitudeObject</span></code>
+A GameObject representing the load’s visual magnitude.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GameObject</span> <span class="pre">pointerObject</span></code>
+A GameObject used as a pointer or indicator.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">float</span> <span class="pre">referenceHeight</span></code>
+Reference height of the magnitude object’s mesh.</p></li>
+</ul>
+</section>
+<section id="methods">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Methods</a><a class="headerlink" href="#methods" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">float</span> <span class="pre">GetMagnitude()</span></code>
+Returns the magnitude value.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Vector2</span> <span class="pre">GetMultiplierRange()</span></code>
+Returns the (min, max) multiplier range.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">SetPositionRatio(float</span> <span class="pre">ratio)</span></code>
+Sets the load’s position ratio.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">float</span> <span class="pre">GetPositionRatio()</span></code>
+Gets the current position ratio.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">SetPosition(Vector3</span> <span class="pre">position)</span></code>
+Sets the world position of the load.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Vector3</span> <span class="pre">GetPosition()</span></code>
+Returns the load’s position in world space.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">float</span> <span class="pre">GetActualHeight()</span></code>
+Returns the actual height from the mesh bounds.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">float</span> <span class="pre">GetReferenceHeight()</span></code>
+Returns the stored reference height.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">SetMagnitudeObject(GameObject</span> <span class="pre">obj)</span></code>
+Sets the magnitude visual object and calculates reference height.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GameObject</span> <span class="pre">GetMagnitudeObject()</span></code>
+Returns the magnitude object.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">SetMinMaxPositionRatio(float</span> <span class="pre">min,</span> <span class="pre">float</span> <span class="pre">max)</span></code>
+Sets limits for valid position ratios.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Vector2</span> <span class="pre">GetMinMaxPositionRatio()</span></code>
+Returns the min and max position ratio.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">SetOriginalPosition(Vector3</span> <span class="pre">position)</span></code>
+Stores the original position of the load.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Vector3</span> <span class="pre">GetOriginalPosition()</span></code>
+Returns the original position.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">SetPointerObject(GameObject</span> <span class="pre">obj)</span></code>
+Assigns the pointer visual object.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GameObject</span> <span class="pre">GetPointerObject()</span></code>
+Gets the pointer object.</p></li>
+</ul>
+</section>
+<section id="enum-loadtype">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">Enum: LoadType</a><a class="headerlink" href="#enum-loadtype" title="Link to this heading"></a></h2>
+<p>Defines the type of load:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="n">LoadType</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Force</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Torque</span><span class="p">,</span>
+<span class="w">    </span><span class="n">DistrubtedForce</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Force</span></code> – A standard linear force.
+<code class="docutils literal notranslate"><span class="pre">Torque</span></code> – A rotational load.
+<code class="docutils literal notranslate"><span class="pre">DistrubtedForce</span></code> – A force applied across a range.</p>
 <div class="toctree-wrapper compound">
 </div>
+</section>
 </section>
 
 

@@ -7,7 +7,8 @@
   <title>Numerical solution with C# &mdash; AR for beams 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
 
   
   <!--[if lt IE 9]>
@@ -19,10 +20,12 @@
         <script src="../_static/documentation_options.js?v=2caa9db7"></script>
         <script src="../_static/doctools.js?v=9a2dae69"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Future Development" href="../FutureDevelopment.html" />
+    <link rel="next" title="Augmented Reality" href="../AR.html" />
     <link rel="prev" title="Beam theory" href="BeamTheory.html" />
    
   <!-- Your custom meta tags go here -->
@@ -71,12 +74,12 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Unity</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../Unity/Unity.html">Unity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Unity/beamGenerator.html">Beam Generator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Unity/Geometries.html">Geometries</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Unity/Constraints.html">Constraints</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Unity/Loads.html">Loads</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Unity/RayCasting.html">Ray Casting and interactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Unity/Unity.html">Unity</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Beam theory</span></p>
 <ul class="current">
@@ -85,7 +88,20 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Numerical solution with C#</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#from-beam-theory-to-an-algebraic-system-of-equations">From beam theory to an algebraic system of equations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#linear-solve-in-c">Linear solve in C#</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#plot-solution">Plot solution</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="#plot-solution">Plot solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mathematical-model">Mathematical Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#files-and-structure">Files and Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-to-run">How to Run</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#code-documentation">Code Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#main-cs">Main.cs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#solver-cs">Solver.cs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#plotter-cs">Plotter.cs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -93,6 +109,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Extra</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../AR.html">Augmented Reality</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../FutureDevelopment.html">Future Development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
 </ul>
@@ -133,12 +150,212 @@ The code is not intended to be used in production or for any real-world applicat
 </div>
 <section id="from-beam-theory-to-an-algebraic-system-of-equations">
 <h2>From beam theory to an algebraic system of equations<a class="headerlink" href="#from-beam-theory-to-an-algebraic-system-of-equations" title="Link to this heading"></a></h2>
+<p>Given the approprieate boundary conditions, the beam theory can be reduced to a system of equations. The system of equations is then solved using a linear solver.
+For instance:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">numRows</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">12</span><span class="p">;</span><span class="w">   </span><span class="c1">// define rows of the matrix</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">numCols</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">12</span><span class="p">;</span><span class="w">   </span><span class="c1">// define columns of the matrix</span>
+
+<span class="c1">// v(0) = 0</span>
+<span class="kt">double</span><span class="p">[]</span><span class="w"> </span><span class="n">row1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="o">/</span><span class="p">(</span><span class="n">E</span><span class="o">*</span><span class="n">I</span><span class="p">),</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="p">};</span>
+<span class="c1">// w(0) = 0</span>
+<span class="kt">double</span><span class="p">[]</span><span class="w"> </span><span class="n">row2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="m">1</span><span class="o">/</span><span class="p">(</span><span class="n">E</span><span class="o">*</span><span class="n">A</span><span class="p">),</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="p">};</span>
+<span class="c1">// M(0) = 0</span>
+<span class="kt">double</span><span class="p">[]</span><span class="w"> </span><span class="n">row3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="p">};</span>
+<span class="c1">// v(zF_s0) = 0</span>
+<span class="kt">double</span><span class="p">[]</span><span class="w"> </span><span class="n">row4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="m">1</span><span class="o">/</span><span class="p">(</span><span class="n">E</span><span class="o">*</span><span class="n">I</span><span class="p">)</span><span class="o">*</span><span class="n">Math</span><span class="p">.</span><span class="n">Pow</span><span class="p">(</span><span class="n">zF_s0</span><span class="p">,</span><span class="m">3</span><span class="p">)</span><span class="o">/</span><span class="m">6</span><span class="p">,</span><span class="w">  </span><span class="m">1</span><span class="o">/</span><span class="p">(</span><span class="n">E</span><span class="o">*</span><span class="n">I</span><span class="p">)</span><span class="o">*</span><span class="n">Math</span><span class="p">.</span><span class="n">Pow</span><span class="p">(</span><span class="n">zF_s0</span><span class="p">,</span><span class="m">2</span><span class="p">)</span><span class="o">/</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="o">/</span><span class="p">(</span><span class="n">E</span><span class="o">*</span><span class="n">I</span><span class="p">)</span><span class="o">*</span><span class="n">zF_s0</span><span class="p">,</span><span class="w">  </span><span class="m">1</span><span class="o">/</span><span class="p">(</span><span class="n">E</span><span class="o">*</span><span class="n">I</span><span class="p">),</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="p">};</span>
+<span class="c1">// Delta_w() = w_s1(0) - w_s0(zF_s0) = 0</span>
+<span class="kt">double</span><span class="p">[]</span><span class="w"> </span><span class="n">row5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="p">(</span><span class="o">-</span><span class="m">1</span><span class="o">/</span><span class="p">(</span><span class="n">E</span><span class="o">*</span><span class="n">A</span><span class="p">))</span><span class="w"> </span><span class="o">*</span><span class="n">zF_s0</span><span class="p">,</span><span class="w">  </span><span class="o">-</span><span class="p">(</span><span class="o">-</span><span class="m">1</span><span class="o">/</span><span class="p">(</span><span class="n">E</span><span class="o">*</span><span class="n">A</span><span class="p">)),</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="m">1</span><span class="o">/</span><span class="p">(</span><span class="n">E</span><span class="o">*</span><span class="n">A</span><span class="p">)</span><span class="w"> </span><span class="p">};</span>
+<span class="c1">// Delta_phi() = phi_s1(0) - phi_s0(zF_s0) = 0</span>
+<span class="kt">double</span><span class="p">[]</span><span class="w"> </span><span class="n">row6</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">(</span><span class="m">1</span><span class="o">/</span><span class="p">(</span><span class="n">E</span><span class="o">*</span><span class="n">I</span><span class="p">))</span><span class="o">*</span><span class="n">Math</span><span class="p">.</span><span class="n">Pow</span><span class="p">(</span><span class="n">zF_s0</span><span class="p">,</span><span class="m">2</span><span class="p">)</span><span class="o">/</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="m">1</span><span class="o">/</span><span class="p">(</span><span class="n">E</span><span class="o">*</span><span class="n">I</span><span class="p">))</span><span class="o">*</span><span class="n">zF_s0</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="m">1</span><span class="o">/</span><span class="p">(</span><span class="n">E</span><span class="o">*</span><span class="n">I</span><span class="p">)),</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w">  </span><span class="o">-</span><span class="m">1</span><span class="o">/</span><span class="p">(</span><span class="n">E</span><span class="o">*</span><span class="n">I</span><span class="p">),</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="p">};</span>
+<span class="c1">// Delta_v() = v_s1(0) - v_s0(zF_s0) = 0</span>
+<span class="kt">double</span><span class="p">[]</span><span class="w"> </span><span class="n">row7</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="o">-</span><span class="p">(</span><span class="m">1</span><span class="o">/</span><span class="p">(</span><span class="n">E</span><span class="o">*</span><span class="n">I</span><span class="p">))</span><span class="o">*</span><span class="n">Math</span><span class="p">.</span><span class="n">Pow</span><span class="p">(</span><span class="n">zF_s0</span><span class="p">,</span><span class="m">3</span><span class="p">)</span><span class="o">/</span><span class="m">6</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="p">(</span><span class="m">1</span><span class="o">/</span><span class="p">(</span><span class="n">E</span><span class="o">*</span><span class="n">I</span><span class="p">))</span><span class="o">*</span><span class="n">Math</span><span class="p">.</span><span class="n">Pow</span><span class="p">(</span><span class="n">zF_s0</span><span class="p">,</span><span class="m">2</span><span class="p">)</span><span class="o">/</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="p">(</span><span class="m">1</span><span class="o">/</span><span class="p">(</span><span class="n">E</span><span class="o">*</span><span class="n">I</span><span class="p">))</span><span class="o">*</span><span class="n">zF_s0</span><span class="p">,</span><span class="w">  </span><span class="o">-</span><span class="p">(</span><span class="m">1</span><span class="o">/</span><span class="p">(</span><span class="n">E</span><span class="o">*</span><span class="n">I</span><span class="p">)),</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w">  </span><span class="m">1</span><span class="o">/</span><span class="p">(</span><span class="n">E</span><span class="o">*</span><span class="n">I</span><span class="p">),</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="p">};</span>
+<span class="c1">// Delta_M() = M_s1(0) - M_s0(zF_s0) = 0</span>
+<span class="kt">double</span><span class="p">[]</span><span class="w"> </span><span class="n">row8</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">-</span><span class="p">(</span><span class="o">-</span><span class="n">zF_s0</span><span class="p">),</span><span class="w"> </span><span class="o">-</span><span class="p">(</span><span class="o">-</span><span class="m">1</span><span class="p">),</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="p">};</span>
+<span class="c1">// Delta_N() = N_s1(0) - N_s0(zF_s0) = 0</span>
+<span class="kt">double</span><span class="p">[]</span><span class="w"> </span><span class="n">row9</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="p">(</span><span class="o">-</span><span class="m">1</span><span class="p">),</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="p">};</span>
+<span class="c1">// M(zF_s1) = 0</span>
+<span class="kt">double</span><span class="p">[]</span><span class="w"> </span><span class="n">row10</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">zF_s1</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="p">};</span>
+<span class="c1">// T(zF_s1) = 0</span>
+<span class="kt">double</span><span class="p">[]</span><span class="w"> </span><span class="n">row11</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="p">};</span>
+<span class="c1">// N(zF_s1) = 0</span>
+<span class="kt">double</span><span class="p">[]</span><span class="w"> </span><span class="n">row12</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="p">};</span>
+<span class="c1">// Set rows collection for the matrix</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">[]</span><span class="o">&gt;</span><span class="w"> </span><span class="n">rows</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">[]</span><span class="o">&gt;</span>
+<span class="p">{</span>
+<span class="w">   </span><span class="n">row1</span><span class="p">,</span><span class="w"> </span><span class="n">row2</span><span class="p">,</span><span class="w"> </span><span class="n">row3</span><span class="p">,</span><span class="w"> </span><span class="n">row4</span><span class="p">,</span><span class="w"> </span><span class="n">row5</span><span class="p">,</span><span class="w"> </span><span class="n">row6</span><span class="p">,</span><span class="w"> </span><span class="n">row7</span><span class="p">,</span><span class="w"> </span><span class="n">row8</span><span class="p">,</span><span class="w"> </span><span class="n">row9</span><span class="p">,</span><span class="w"> </span><span class="n">row10</span><span class="p">,</span><span class="w"> </span><span class="n">row11</span><span class="p">,</span><span class="w"> </span><span class="n">row12</span>
+<span class="p">};</span>
+
+<span class="c1">// define the vector</span>
+<span class="kt">double</span><span class="p">[]</span><span class="w"> </span><span class="n">vector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">double</span><span class="p">[]</span>
+<span class="p">{</span>
+<span class="w">   </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">force</span><span class="p">,</span><span class="w"> </span><span class="m">0</span>
+<span class="p">};</span>
+
+
+<span class="c1">// reshape the matrix from [][] to [,]</span>
+<span class="kt">double</span><span class="p">[,]</span><span class="w"> </span><span class="n">matrix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">double</span><span class="p">[</span><span class="n">numRows</span><span class="p">,</span><span class="w"> </span><span class="n">numCols</span><span class="p">];</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">rows</span><span class="p">.</span><span class="n">Count</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">   </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">rows</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">Length</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+<span class="w">   </span><span class="p">{</span>
+<span class="w">         </span><span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rows</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
+<span class="w">   </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </section>
 <section id="linear-solve-in-c">
 <h2>Linear solve in C#<a class="headerlink" href="#linear-solve-in-c" title="Link to this heading"></a></h2>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="p">[]</span><span class="w"> </span><span class="n">solution</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MatrixSolver</span><span class="p">.</span><span class="n">Solve</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span><span class="w"> </span><span class="n">vector</span><span class="p">);</span>
+</pre></div>
+</div>
 </section>
 <section id="plot-solution">
 <h2>Plot solution<a class="headerlink" href="#plot-solution" title="Link to this heading"></a></h2>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">PlotBeamFunction</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">ResultsGroup</span><span class="o">&gt;</span><span class="w"> </span><span class="n">groups</span><span class="p">)</span>
+<span class="w"> </span><span class="p">{</span>
+
+<span class="w">     </span><span class="n">ScottPlot</span><span class="p">.</span><span class="n">Multiplot</span><span class="w"> </span><span class="n">multiplot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="p">();</span><span class="w"> </span><span class="c1">// start a new multiplot</span>
+<span class="w">     </span><span class="kt">double</span><span class="w"> </span><span class="n">dx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.1</span><span class="p">;</span><span class="w"> </span><span class="c1">// resolution of the plot</span>
+
+<span class="w">     </span><span class="n">ScottPlot</span><span class="p">.</span><span class="n">Plot</span><span class="w"> </span><span class="n">displacement</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">PlotDisplacement</span><span class="p">(</span><span class="w"> </span><span class="n">groups</span><span class="p">,</span><span class="w"> </span><span class="n">dx</span><span class="p">);</span><span class="w"> </span><span class="c1">// prepare the displacement plot</span>
+<span class="w">     </span><span class="n">ScottPlot</span><span class="p">.</span><span class="n">Plot</span><span class="w"> </span><span class="n">N</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">PlotN</span><span class="p">(</span><span class="w"> </span><span class="n">groups</span><span class="p">,</span><span class="w"> </span><span class="n">dx</span><span class="p">);</span><span class="w"> </span><span class="c1">// prepare the axial force plot</span>
+<span class="w">     </span><span class="n">ScottPlot</span><span class="p">.</span><span class="n">Plot</span><span class="w"> </span><span class="n">T</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">PlotT</span><span class="p">(</span><span class="w"> </span><span class="n">groups</span><span class="p">,</span><span class="w"> </span><span class="n">dx</span><span class="p">);</span><span class="w"> </span><span class="c1">// prepare the shear force plot</span>
+<span class="w">     </span><span class="n">ScottPlot</span><span class="p">.</span><span class="n">Plot</span><span class="w"> </span><span class="n">M</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">PlotM</span><span class="p">(</span><span class="w"> </span><span class="n">groups</span><span class="p">,</span><span class="w"> </span><span class="n">dx</span><span class="p">);</span><span class="w"> </span><span class="c1">// prepare the bending moment plot</span>
+
+<span class="w">     </span><span class="n">multiplot</span><span class="p">.</span><span class="n">AddPlot</span><span class="p">(</span><span class="n">displacement</span><span class="p">);</span><span class="w"> </span><span class="c1">// add the displacement plot to the multiplot</span>
+<span class="w">     </span><span class="n">multiplot</span><span class="p">.</span><span class="n">AddPlot</span><span class="p">(</span><span class="n">N</span><span class="p">);</span><span class="w"> </span><span class="c1">// add the axial force plot to the multiplot</span>
+<span class="w">     </span><span class="n">multiplot</span><span class="p">.</span><span class="n">AddPlot</span><span class="p">(</span><span class="n">T</span><span class="p">);</span><span class="w"> </span><span class="c1">// add the shear force plot to the multiplot</span>
+<span class="w">     </span><span class="n">multiplot</span><span class="p">.</span><span class="n">AddPlot</span><span class="p">(</span><span class="n">M</span><span class="p">);</span><span class="w"> </span><span class="c1">// add the bending moment plot to the multiplot</span>
+
+<span class="w">     </span><span class="c1">// string imagePath = &quot;plot.png&quot;; // path to save the image</span>
+<span class="w">     </span><span class="kt">var</span><span class="w"> </span><span class="n">baseDirectory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Directory</span><span class="p">.</span><span class="n">GetParent</span><span class="p">(</span><span class="n">AppDomain</span><span class="p">.</span><span class="n">CurrentDomain</span><span class="p">.</span><span class="n">BaseDirectory</span><span class="p">);</span>
+<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">baseDirectory</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">baseDirectory</span><span class="p">.</span><span class="n">Parent</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">baseDirectory</span><span class="p">.</span><span class="n">Parent</span><span class="p">.</span><span class="n">Parent</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">null</span><span class="p">)</span>
+<span class="w">     </span><span class="p">{</span>
+<span class="w">         </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nf">InvalidOperationException</span><span class="p">(</span><span class="s">&quot;Unable to determine the project root directory.&quot;</span><span class="p">);</span>
+<span class="w">     </span><span class="p">}</span>
+<span class="w">     </span><span class="kt">string</span><span class="w"> </span><span class="n">projectRoot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">baseDirectory</span><span class="p">.</span><span class="n">Parent</span><span class="p">.</span><span class="n">Parent</span><span class="p">.</span><span class="n">FullName</span><span class="p">;</span>
+<span class="w">     </span><span class="kt">string</span><span class="w"> </span><span class="n">imagePath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Path</span><span class="p">.</span><span class="n">Combine</span><span class="p">(</span><span class="n">projectRoot</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;plot.png&quot;</span><span class="p">);</span>
+<span class="w">     </span><span class="n">multiplot</span><span class="p">.</span><span class="n">SavePng</span><span class="p">(</span><span class="n">imagePath</span><span class="p">,</span><span class="w"> </span><span class="m">600</span><span class="p">,</span><span class="w"> </span><span class="m">1200</span><span class="p">);</span><span class="w"> </span><span class="c1">// save the image</span>
+<span class="w">     </span><span class="n">OpenImage</span><span class="p">(</span><span class="n">imagePath</span><span class="p">);</span><span class="w"> </span><span class="c1">// open the image</span>
+<span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>This project implements a two-segment beam model with a hinge at the left end, a roller support at an intermediate point, and a concentrated load applied at the same point as the roller. It calculates symbolic solutions and visualizes results using a 2D plot.</p>
+<p>It is intended for educational purposes, especially to complement AR-based simulations in Unity.</p>
+<a class="reference internal image-reference" href="https://github.com/multi2mech/simply-supported-beam-edu/blob/main/extra/beam.gif?raw=true"><img alt="https://github.com/multi2mech/simply-supported-beam-edu/blob/main/extra/beam.gif?raw=true" class="align-center" src="https://github.com/multi2mech/simply-supported-beam-edu/blob/main/extra/beam.gif?raw=true" style="width: 250px;" />
+</a>
+<section id="mathematical-model">
+<h3>Mathematical Model<a class="headerlink" href="#mathematical-model" title="Link to this heading"></a></h3>
+<p>The beam behavior is modeled with the Euler-Bernoulli beam equation:</p>
+<div class="math">
+<p><img src="../_images/math/9bae775aa3670ac786bad6081522727b9b9f418b.png" alt="\frac{d^2}{dz^2}\left(EI \frac{d^2v}{dz^2}\right) = q(z)"/></p>
+</div><dl class="simple">
+<dt>where:</dt><dd><ul class="simple">
+<li><p><img class="math" src="../_images/math/1815f600df7845409443aed470eac2d449e4ddb0.png" alt="E"/> is Young’s modulus,</p></li>
+<li><p><img class="math" src="../_images/math/015755a22b6219b345c36a9a47b091dc56007486.png" alt="I"/> is the moment of inertia,</p></li>
+<li><p><img class="math" src="../_images/math/80b49eca3ea5fc6515c0ea9a4ec491fe669b0e98.png" alt="v(z)"/> is the transverse displacement,</p></li>
+<li><p><img class="math" src="../_images/math/18838371f844252fd24c12cfa8e11e1710c525d7.png" alt="q(z)"/> is the distributed load (in this case, a point force).</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="files-and-structure">
+<h3>Files and Structure<a class="headerlink" href="#files-and-structure" title="Link to this heading"></a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>main.cs</strong>: Entry point and configuration.</p></li>
+<li><p><strong>Solver.cs</strong>: Solves the beam equations symbolically for each segment.</p></li>
+<li><p><strong>Plotter.cs</strong>: Uses ScottPlot to visualize results.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="how-to-run">
+<h3>How to Run<a class="headerlink" href="#how-to-run" title="Link to this heading"></a></h3>
+<ol class="arabic">
+<li><p>Ensure [.NET SDK](<a class="reference external" href="https://dotnet.microsoft.com/en-us/download">https://dotnet.microsoft.com/en-us/download</a>) is installed.</p></li>
+<li><p>Open terminal in the project directory and run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dotnet<span class="w"> </span>restore
+dotnet<span class="w"> </span>build
+dotnet<span class="w"> </span>run
+</pre></div>
+</div>
+</li>
+<li><p>The output will be displayed both as console output and a plot image (<cite>plot.png</cite>).</p></li>
+</ol>
+<p>Example Output:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Solution found!
+
+Segment 1 from z: 0 to z: 5, coefficients: c1 = 8.00E+002, ...
+Segment 2 from z: 5 to z: 10, coefficients: c1 = -8.00E+002, ...
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="https://github.com/multi2mech/simply-supported-beam-edu/blob/main/extra/plot_result.png?raw=true"><img alt="https://github.com/multi2mech/simply-supported-beam-edu/blob/main/extra/plot_result.png?raw=true" class="align-center" src="https://github.com/multi2mech/simply-supported-beam-edu/blob/main/extra/plot_result.png?raw=true" style="width: 300px;" />
+</a>
+</section>
+</section>
+<section id="code-documentation">
+<h2>Code Documentation<a class="headerlink" href="#code-documentation" title="Link to this heading"></a></h2>
+<section id="main-cs">
+<h3>Main.cs<a class="headerlink" href="#main-cs" title="Link to this heading"></a></h3>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Entry point to the application.</span>
+<span class="c1">// Defines beam parameters (E, I, A), length, load, and support positions.</span>
+<span class="c1">// Calls the Solver to compute the coefficients and then plots the results.</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Key Parameters:</dt><dd><ul class="simple">
+<li><p><cite>E</cite>, <cite>I</cite>, <cite>A</cite>: Material and geometric properties.</p></li>
+<li><p><cite>length</cite>: Total length of the beam.</p></li>
+<li><p><cite>force</cite>: Applied load value.</p></li>
+<li><p><cite>ratio</cite>: Normalized position of roller and load (<cite>0 &lt; ratio &lt; 1</cite>).</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="solver-cs">
+<h3>Solver.cs<a class="headerlink" href="#solver-cs" title="Link to this heading"></a></h3>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Solver</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="nf">Solver</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">E</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">I</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">force</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">length</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">ratio</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Responsibilities:</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Computes constants of integration for each beam segment.</p></li>
+<li><p>Solves the system of equations derived from continuity, boundary conditions, and applied load.</p></li>
+<li><p>Outputs segment coefficients grouped as <cite>[c1, c2, …, c6]</cite>.</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Important Methods:</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>Solve()</cite>: Solves the symbolic equations for beam deflection.</p></li>
+<li><p><cite>GetSolutionSegments()</cite>: Returns evaluated solutions for each segment.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="plotter-cs">
+<h3>Plotter.cs<a class="headerlink" href="#plotter-cs" title="Link to this heading"></a></h3>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Plotter</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Plot</span><span class="p">(</span><span class="n">Solver</span><span class="w"> </span><span class="n">solver</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">zStep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.1f</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">.NET</span> <span class="pre">6.0</span></code> or later</p></li>
+<li><p>Unity (optional, for AR visualization)</p></li>
+</ul>
 <div class="toctree-wrapper compound">
 </div>
 </section>
@@ -149,7 +366,7 @@ The code is not intended to be used in production or for any real-world applicat
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="BeamTheory.html" class="btn btn-neutral float-left" title="Beam theory" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../FutureDevelopment.html" class="btn btn-neutral float-right" title="Future Development" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../AR.html" class="btn btn-neutral float-right" title="Augmented Reality" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

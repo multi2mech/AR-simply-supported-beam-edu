@@ -25,6 +25,7 @@ Beam normal
 Beam normal is computed as the distance between the two pointers. This is done in ``myScriptBeam/beamPositioning.cs``. 
 
 .. code-block:: c#
+
     // ....
     beamVector = endPoint - basePoint;
     beamDirection = beamVector.normalized;
@@ -260,7 +261,7 @@ Beam colors and segment identication
 
 Each mathematical segmented is represeted by a different color using a node-based shader:
 
-.. code-block:: c#
+.. code-block:: c
 
     Shader "Custom/DistanceColorShader"
     {
@@ -330,7 +331,9 @@ Each mathematical segmented is represeted by a different color using a node-base
 Note that color can be assigned directly by the GUI to the meshGenerator.
 
 
-
+.. image:: /_static/colors.jpg
+   :alt: Colors
+   :width: 600px
 
 .. toctree::
    :maxdepth: 5  
