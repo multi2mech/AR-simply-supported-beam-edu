@@ -4,7 +4,7 @@ Have a look at the [graphical presentation here](https://multi2mech.github.io/AR
 
 This educational project integrates Augmented Reality (AR) using Meta Quest headsets with beam elasticity theory. The goal is to provide an AR/VR-based visualization of fundamental problems related to beam mechanics. As a learning tool, it begins with defining the boundary conditions of an elastic beam. [simply-supported-beam-edu](https://github.com/multi2mech/simply-supported-beam-edu) for more details on the C# code for the beam equations.
 
-[multi2mech.com](https://www.multi2mech.com)
+👉 [multi2mech.com](https://www.multi2mech.com)
 
 ![promo.gif](https://github.com/multi2mech/AR-simply-supported-beam-edu/blob/main/docs/promo.gif?raw=true)
 
